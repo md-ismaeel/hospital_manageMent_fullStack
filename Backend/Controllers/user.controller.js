@@ -1,122 +1,236 @@
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken')
-const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const userModel = require("../Models/user.model");
+const UserModel = require("../Models/user.model");
+const { catchAsyncFun } = require("../Middleware/errorHandler");
+const { uploadFile } = require("../Services/services");
 
-dotenv.config();
 const jwtSecretKey = process.env.JWT_SECRETE_KEY;
-console.log(jwtSecretKey);
 
 
+/* add new admin */
 const addNewAdmin = async (req, res) => {
-
-  try {
-    console.log(req.body);
-    const { password } = req.body;
-
-    const salt = bcrypt.genSaltSync(10);
-    const hasPassword = bcrypt.hashSync(password, salt);
-
-
-
-    // await userModel.create(userDetails);
-    const userDetails = new userModel({
-      ...req.body,
-      password: hasPassword,
-      role: 'ADMIN'
-    });
-
-    const info = await userDetails.save()
-    res.json({
-      success: true,
-      message: "admin signUp successfully",
-      results: info._id
-    })
-
-  } catch (err) {
-
-    res.json({
-      success: false,
-      message: "user signUp successfully", err
-    });
-  }
-
-};
-
-
-const addNewDoctor = async (req, res) => {
-
-  try {
-    console.log(req.body);
-    const { password } = req.body;
-
-    const salt = bcrypt.genSaltSync(10);
-    const hasPassword = bcrypt.hashSync(password, salt);
-
-    const userDetails = {
-      ...req.body,
-      password: hasPassword,
-      role: 'DOCTOR'
-    }
-
-    await userModel.create(userDetails);
-    res.json({
-      success: true,
-      message: "doctor signUp successfully"
-    })
-
-  } catch (err) {
-
-    res.json({
-      success: false,
-      message: "user not register please try again",
-    });
-  }
-
-};
-
-
-const addNewPatient = async (req, res) => {
-
-  try {
-    console.log(req.body);
-    const { password } = req.body;
-
-    const salt = bcrypt.genSaltSync(10);
-    const hasPassword = bcrypt.hashSync(password, salt);
-
-    const userDetails = {
-      ...req.body,
-      password: hasPassword,
-      role: 'PATIENT'
-    }
-
-    await userModel.create(userDetails);
-    res.json({
-      success: true,
-      message: "doctor signUp successfully"
-    })
-
-  } catch (err) {
-
-    res.json({
-      success: false,
-      message: "user signUp successfully", err
-    });
-  }
-
-};
-
-const signInUser = async (req, res) => {
   console.log(req.body);
+
+  const { firstName, lastName, email, password, phone, dob, gender } = req.body;
+
+  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender) {
+    return res.status(409).json({
+      success: false,
+      message: "Please fill All Fields!",
+    });
+  }
+
+  const isUser = await UserModel.findOne({ email });
+  if (isUser) {
+    return res.json({
+      success: false,
+      message: "user already registered",
+    });
+  }
+
+  const salt = bcrypt.genSaltSync(10);
+  const hasPassword = bcrypt.hashSync(password, salt);
+
+  // const userDetails = new UserModel({
+  //   ...req.body,
+  //   password: hasPassword,
+  //   role: 'ADMIN'
+  // });
+  // const info = await userDetails.save()
+
+  const adminUser = await UserModel.create({
+    ...req.body,
+    password: hasPassword,
+    role: "ADMIN",
+  });
+
+  res.status(201).json({
+    success: true,
+    message: "admin created signUp successfully",
+    results: adminUser._id,
+  });
+};
+
+/* add new doctor */
+const addNewDoctor = async (req, res) => {
+  // console.log(req.body);
+  console.log("something");
+  const { firstName, lastName, email, password, phone, dob, gender, docDepartment } = req.body;
+
+  if (!req.file) {
+    return res.status(400).json({
+      success: false,
+      message: "Upload image for the avatar",
+    });
+  }
+
+  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender || !docDepartment) {
+    return res.status(409).json({
+      success: false,
+      message: "Please fill All Fields!",
+    });
+  }
+
+  const isUser = await UserModel.findOne({ email });
+  if (isUser) {
+    return res.json({
+      success: false,
+      message: "user already registered",
+    });
+  }
+
+  const result = await uploadFile(req);
+  // console.log(result);
+
+  const salt = bcrypt.genSaltSync(10);
+  const hasPassword = bcrypt.hashSync(password, salt);
+
+  const doctorUser = await UserModel.create({
+    ...req.body,
+    password: hasPassword,
+    role: "DOCTOR",
+    docAvatar: result.secure_url,
+  });
+
+  res.status(201).json({
+    success: true,
+    message: "doctor created signUp successfully",
+    results: doctorUser._id,
+  });
 };
 
 
-module.exports = { addNewAdmin, addNewDoctor, addNewPatient, signInUser };
+/* add new patient */
+const addNewPatient = async (req, res) => {
+  console.log(req.body);
 
-// const userController = {
-//     signInUser,
-//     signInUser
-// }
-// module.exports = userController;
+  const { firstName, lastName, email, password, phone, dob, gender } = req.body;
+
+  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender) {
+    return res.status(400).json({
+      success: false,
+      message: "Please fill All Fields!",
+    });
+  }
+
+  const isUser = await UserModel.findOne({ email });
+  if (isUser) {
+    return res.json({
+      success: false,
+      message: "user already registered",
+    });
+  }
+
+  const salt = bcrypt.genSaltSync(10);
+  const hasPassword = bcrypt.hashSync(password, salt);
+
+  const patientUser = await UserModel.create({
+    ...req.body,
+    password: hasPassword,
+    role: "PATIENT",
+  });
+
+  res.status(201).json({
+    success: true,
+    message: "Patient created signUp successfully",
+    results: patientUser._id,
+  });
+};
+
+
+/* add getProfile */
+const getProfile = async (req, res) => {
+  console.log(req.user);
+
+  const genders = {
+    M: "Male",
+    F: "Female",
+    T: "Transgender",
+    O: "Other",
+  };
+
+  const userData = {
+    userId: req.user._id,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    email: req.user.email,
+    phone: req.user.phone,
+    dob: req.user.dob,
+    gender: genders[req.user.gender],
+    docDepartment: req.user.docDepartment,
+    docAvatar: req.user.docAvatar,
+  };
+
+  res.status(200).json({
+    success: true,
+    message: "profile data fetched",
+    userData,
+  });
+};
+
+
+/* user Login */
+const loginUser = async (req, res) => {
+  // console.log(req.body);
+  const { email, password } = req.body;
+
+  const user = await UserModel.findOne({ email });
+  if (!user) {
+    return res.status(400).json({
+      sucess: false,
+      message: "Invalid username or password",
+    });
+  }
+
+  const isValidPassword = bcrypt.compareSync(password, user.password);
+  if (!isValidPassword) {
+    return res.status(400).json({
+      sucess: false,
+      message: "Invalid username or password",
+    });
+  }
+
+  const jwt_payload = {
+    role: user.role,
+    userId: user._id,
+    email: user.email,
+    name: `${user.firstName} ${user.lastName}`,
+    exp: Math.ceil(new Date().getTime() / 1000 + 7200),
+  };
+
+  const token = jwt.sign(jwt_payload, jwtSecretKey);
+
+  await UserModel.updateOne({ token: `Bearer ${token}` });
+
+  res.json({
+    sucess: true,
+    message: "Token Generated successfully",
+    token: `Bearer ${token}`,
+  });
+};
+
+
+/* user Logout */
+const logoutUser = async (req, res) => {
+  console.log(req.user);
+  await UserModel.findByIdAndUpdate(req.user._id, { token: null });
+
+  res.json({
+    success: true,
+    message: "User LogOut Successfully",
+  });
+};
+
+
+const userController = {
+  addNewAdmin: catchAsyncFun(addNewAdmin),
+  addNewDoctor: catchAsyncFun(addNewDoctor),
+  addNewPatient: catchAsyncFun(addNewPatient),
+  getProfile: catchAsyncFun(getProfile),
+  loginUser: catchAsyncFun(loginUser),
+  logoutUser: catchAsyncFun(logoutUser),
+};
+
+module.exports = userController;

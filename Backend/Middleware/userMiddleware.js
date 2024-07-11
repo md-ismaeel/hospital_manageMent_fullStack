@@ -1,13 +1,11 @@
 const jwt = require('jsonwebtoken');
 const passport = require('passport')
-const dotenv = require('dotenv');
-
-dotenv.config()
+require('dotenv').config();
 
 const JwtStrategy = require("passport-jwt").Strategy,
     ExtractJwt = require("passport-jwt").ExtractJwt;
 
-const UserModel = require("../models/user");
+const UserModel = require("../Models/user.model");
 
 const jwtSecretKey = process.env.JWT_SECRETE_KEY
 

@@ -1,12 +1,42 @@
-const express = require('express');
+const express = require("express");
 
-const { addNewAdmin, addNewDoctor, addNewPatient, signInUser } = require('../Controllers/user.controller')
+const { addNewAdmin, addNewDoctor, addNewPatient, getProfile, loginUser, logoutUser } = require("../Controllers/user.controller");
+
+const passport = require("../Middleware/userMiddleware");
+const Authorization = require("../Middleware/authorization");
+const { upload } = require("../Services/services");
 
 const userRouter = express.Router();
 
-userRouter.post('/signUp/admin', addNewAdmin);
-userRouter.post('/signUp/doctor', addNewDoctor);
-userRouter.post('/signUp/patient', addNewPatient);
-userRouter.post('/login/user', signInUser);
+userRouter.post(
+    "/register/admin",
+    passport.authenticate("jwt", { session: false }),
+    Authorization(["ADMIN"]),
+    addNewAdmin
+);
+
+userRouter.post(
+    "/register/doctor",
+    passport.authenticate("jwt", { session: false }),
+    Authorization(["ADMIN"]),
+    upload.single("file"),
+    addNewDoctor
+);
+
+userRouter.post("/register/patient", addNewPatient);
+
+userRouter.get(
+    "/profile",
+    passport.authenticate("jwt", { session: false }),
+    getProfile
+);
+
+userRouter.post("/login", loginUser);
+
+userRouter.post(
+    "/logout",
+    passport.authenticate("jwt", { session: false }),
+    logoutUser
+);
 
 module.exports = userRouter;

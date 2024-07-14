@@ -8,13 +8,13 @@ const createAppointment = async (req, res) => {
     // console.log(req.body);
 
     console.log("create appointments");
-    const { firstName, lastName, email, phone, dob, userId, doctorId, address, appointmentDate, department, hasVisited } = req.body;
+    const { firstName, lastName, email, gender, phone, dob, userId, doctorId, address, appointmentDate, department, hasVisited } = req.body;
 
-    if (!firstName || !lastName || !email || !phone || !dob || !userId || !doctorId || !address || !appointmentDate || !department || !hasVisited) {
+    if (!firstName || !lastName || !email || !phone || !dob || !gender || !address || !appointmentDate || !department || hasVisited === undefined) {
 
         return res.status(400).json({
             success: false,
-            message: "required all fields!"
+            message: "All fields required!"
         })
     }
 
@@ -27,7 +27,7 @@ const createAppointment = async (req, res) => {
 
     const newAppointment = await AppointmentModel.create({
         ...req.body,
-        status: "pending"
+        status: "Pending"
     })
 
     res.status(201).json({
@@ -68,6 +68,8 @@ const getAllAppointments = async (req, res) => {
 
 /* get all Appointments */
 const appointmentEdit = async (req, res) => {
+    // console.log("check1");
+
     const { id } = req.params;
     const { status } = req.body;
 
@@ -96,12 +98,14 @@ const appointmentEdit = async (req, res) => {
         })
     }
 
-    const editedAppointment = await AppointmentModel.findByIdAndUpdate(id, { status })
+    // const editedAppointment = await AppointmentModel.findByIdAndUpdate(id, { status })
+    appointment.status = status;
+    await appointment.save()
 
     res.status(200).json({
         success: true,
         message: "Appointment edited successfully!!",
-        results: editedAppointment
+        results: appointment
     })
 
 

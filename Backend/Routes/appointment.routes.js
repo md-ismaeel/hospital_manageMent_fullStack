@@ -1,7 +1,8 @@
 const express = require("express");
 
 const AppointmentController = require("../Controllers/appointment.controller");
-const { createAppointment, getAllAppointments } = AppointmentController;
+const { createAppointment, getAllAppointments, appointmentEdit } =
+    AppointmentController;
 
 const passport = require("../Middleware/userMiddleware");
 const Authorization = require("../Middleware/authorization");
@@ -19,6 +20,13 @@ appointmentRoutes.post(
     passport.authenticate("jwt", { session: false }),
     Authorization(["ADMIN", "DOCTOR", "PATIENT"]),
     getAllAppointments
+);
+
+appointmentRoutes.post(
+    "/edit/:id",
+    passport.authenticate("jwt", { session: false }),
+    Authorization(["ADMIN", "DOCTOR", "PATIENT"]),
+    appointmentEdit
 );
 
 module.exports = appointmentRoutes;

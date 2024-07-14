@@ -1,13 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors")
 require("dotenv").config();
 
 const userRoutes = require("./Routes/user.routes");
 const appointmentRoutes = require("./Routes/appointment.routes");
 const { errorHandler } = require("./Middleware/errorHandler");
 
+const corsOptions = {
+    origin: [
+        "http://localhost:5173",
+    ],
+    credentials: true,
+}
 const app = express();
 app.use(express.json());
+app.use(cors(corsOptions))
 
 const Port = process.env.PORT || 10000;
 

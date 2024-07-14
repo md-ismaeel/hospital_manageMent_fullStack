@@ -1,10 +1,12 @@
 // Backend end pints
 
-export const API_BACKEND = "http://localhost:10000/api/v1/"
+export const API_USER_BACKEND = "http://localhost:10000/api/v1/user";
+export const API_APPOINTMENT_BACKEND = "http://localhost:10000/api/v1/user/appointment";
 
 export const requestOptions = {
     headers: {
-
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
     },
-    CredentialWith: true
-}
+    withCredentials: true
+};

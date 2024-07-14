@@ -33,6 +33,16 @@ const appointmentSchema = new mongoose.Schema(
             required: [true, "Gender is Required!"],
             enum: ["M", "F", "T", "O"],
         },
+        doctor: {
+            firstName: {
+                type: String,
+                required: [true, "FirstName Required!!"]
+            },
+            lastName: {
+                type: String,
+                required: [true, "LastName Required!!"]
+            }
+        },
         uid: {
             type: String,
             required: false,

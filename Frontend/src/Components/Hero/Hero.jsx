@@ -21,7 +21,7 @@ export const Hero = () => {
                     </div>
                     <div className="banner relative w-1/2 px-10 flex justify-center items-center mt-10">
                         <img src={imageOfHero} alt="hero" className="animated-image w-[350px] h-[350px] z-10" />
-                        <span className='absolute right-[0px] top-[0px]'>
+                        <span className='absolute right-[-84px] top-[-200px]'>
                             <img src={imageOfVector} alt="vector" className='w-[500px] h-[500px]' />
                         </span>
                     </div>

@@ -14,7 +14,6 @@ export const Message = () => {
         { name: "Last Name", value: lastName, type: 'text', onChange: setLastName },
         { name: "Email", value: email, type: 'email', onChange: setEmail },
         { name: "Phone", value: phone, type: 'number', onChange: setPhone },
-        // { name: "Message", value: message, type: 'text', onChange: setMessage },
     ];
 
     const resetForm = () => {
@@ -32,7 +31,7 @@ export const Message = () => {
             firstName, lastName, email, phone, message
         }
         try {
-            const response = await axios.post(`${API_USER_BACKEND}/register/patient`, userObj, requestOptions);
+            const response = await axios.post(`${API_USER_BACKEND}/sendMessage`, userObj, requestOptions);
             const data = response
             console.log(data);
             if (data) {

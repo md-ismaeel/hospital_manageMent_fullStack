@@ -3,6 +3,8 @@ import axios from "axios";
 import { InputForm } from '../../Components/InputForm';
 import { API_USER_BACKEND, requestOptions } from '../../Utils/utils';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 export const Register = () => {
     const [firstName, setFirstName] = useState("");
@@ -12,6 +14,8 @@ export const Register = () => {
     const [gender, setGender] = useState("");
     const [phone, setPhone] = useState("");
     const [dob, setDob] = useState("");
+
+    const navigate = useNavigate()
 
     const formData = [
         { name: "First Name", value: firstName, type: 'text', onChange: setFirstName },
@@ -68,7 +72,7 @@ export const Register = () => {
                 <button type="submit" className='w-[400px] mt-4 bg-blue-500 text-white p-2 rounded'>Register</button>
             </form>
             <div className='w-[500px]'>
-                <p>already account</p>
+                <p>already account <span onClick={() => navigate("/login")}>Logon</span></p>
             </div>
         </div>
     );

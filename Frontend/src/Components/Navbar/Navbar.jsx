@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import logo from "../../assets/logo/logo.svg"
+import logo from "../../assets/Medical-log.png"
 
 export const Navbar = () => {
 
@@ -26,13 +26,18 @@ export const Navbar = () => {
 
     return (
         <>
-            <div className='w-full h-[60px] fixed flex justify-between items-center px-20 bg-slate-50'>
-                <img src={logo} alt='logo' className='w-[60px] h-[60px] rounded-full' />
+            <div className='w-full h-[60px] fixed flex justify-between items-center px-20 bg-slate-50 z-50 font-medium border-b'>
+
+                <span onClick={() => navigate("/")} className='cursor-pointer'>
+                    <img src={logo} alt='logo' className='w-[55px] h-[55px] rounded-full' />
+                </span>
+
                 <ul className='flex justify-center items-center gap-3'>
                     <NavLink to={"/"}>Home</NavLink>
                     <NavLink to={"/appointment"}>Appointment</NavLink>
                     <NavLink to={"/about"}>About Us</NavLink>
                 </ul>
+
                 {
                     !isAuthenticated ?
                         <button className='bg-blue-500 px-6 py-1 rounded-md' onClick={() => navigate("/login")}>Login</button> :

@@ -18,16 +18,16 @@ function App() {
 
       children: [
         {
+          path: "/",
+          element: <Home />,
+        },
+        {
           path: "login",
           element: <Login />
         },
         {
           path: "register",
           element: <Register />
-        },
-        {
-          path: "/",
-          element: <Home />,
         },
         {
           path: "/appointment",

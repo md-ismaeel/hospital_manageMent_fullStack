@@ -17,7 +17,9 @@
 /* Apply Poppins Font to the Body */
 body {
   font-family: var(--font-family-poppins);
-  font-weight: var(--font-weight-light); /* Optional: set default weight */
+  font-weight: var(--font-weight-light);
+  /* Optional: set default weight */
+  overflow-x: hidden;
 }
 
 /* Poppins Light Font Class */

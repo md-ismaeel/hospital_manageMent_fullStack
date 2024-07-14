@@ -1,8 +1,7 @@
 const express = require("express");
 
 const AppointmentController = require("../Controllers/appointment.controller");
-const { createAppointment, getAllAppointments, appointmentEdit } =
-    AppointmentController;
+const { createAppointment, getAllAppointments, appointmentEdit } = AppointmentController;
 
 const passport = require("../Middleware/userMiddleware");
 const Authorization = require("../Middleware/authorization");

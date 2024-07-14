@@ -1,0 +1,33 @@
+import React from 'react'
+import imageOfHero from "../../assets/hero.png"
+import imageOfVector from "../../assets/Vector.png"
+import "../Hero/Hero.css"
+
+export const Hero = () => {
+    return (
+        <>
+            <section className="hero-container w-full h-auto mb-10">
+                <div className="w-full h-[500px] flex justify-between items-center border-blue-500">
+                    <div className="banner w-1/2 px-10">
+                        <h1 className='text-2xl font-bold'>{"Welcome to Healthcare Medical | Your Trusted Healthcare Provider"}</h1>
+                        <p className='mt-8'>
+                            Healthcare Medical is a state-of-the-art facility dedicated
+                            to providing comprehensive healthcare services with compassion and
+                            expertise. Our team of skilled professionals is committed to
+                            delivering personalized care tailored to each patient's needs. At
+                            Healthcare, we prioritize your well-being, ensuring a harmonious
+                            journey towards optimal health and wellness.
+                        </p>
+                    </div>
+                    <div className="banner relative w-1/2 px-10 flex justify-center items-center mt-10">
+                        <img src={imageOfHero} alt="hero" className="animated-image w-[350px] h-[350px] z-10" />
+                        <span className='absolute right-[0px] top-[0px]'>
+                            <img src={imageOfVector} alt="vector" className='w-[500px] h-[500px]' />
+                        </span>
+                    </div>
+                </div>
+            </section>
+        </>
+    )
+}
+

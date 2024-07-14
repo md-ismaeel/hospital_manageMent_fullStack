@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const userRoutes = require("./Routes/user.routes");
 const appointmentRoutes = require("./Routes/appointment.routes");
+const messageRoutes = require("./Routes/message.routes")
 const { errorHandler } = require("./Middleware/errorHandler");
 
 const corsOptions = {
@@ -26,6 +27,7 @@ mongoose
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/user/appointment", appointmentRoutes);
+app.use("/api/v1/user/", messageRoutes)
 
 app.use(errorHandler);
 

@@ -7,7 +7,7 @@ import { Home } from "./Page/Home/Home";
 import { AboutUs } from "./Page/AboutUs/AboutUs";
 import { Appointment } from "./Page/Appointment/Appointment";
 import { Register } from "./Page/Register/Register";
-import { ToastContainer } from 'react-toastify';
+
 
 function App() {
 
@@ -42,9 +42,9 @@ function App() {
   ]);
 
   return (
-    <RouterProvider router={router}>
-      <ToastContainer position='center' />
-    </RouterProvider>
+    <>
+      <RouterProvider router={router} />
+    </>
   )
 }
 

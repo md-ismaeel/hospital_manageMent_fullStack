@@ -10,10 +10,25 @@ const UserModel = require("../Models/user.model");
 const jwtSecretKey = process.env.JWT_SECRETE_KEY
 
 const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+
+opts.jwtFromRequest = (req, res) => {
+    let token = null;
+    if (req && req.cookies) {
+        token = req.cookies["token"]; // assuming the token is stored in a cookie named 'token'
+    }
+    if (!token) {
+        return res.status(401).json({
+            success: false,
+            message: "Unauthorized"
+        })
+    }
+    return token;
+};
+
+
 opts.secretOrKey = jwtSecretKey;
 
-const strategy = new JwtStrategy(opts, async function (jwt_payload, done) {
+const strategy = new JwtStrategy(opts, async (jwt_payload, done) => {
 
     const userId = jwt_payload.userId;
     const user = await UserModel.findById(userId);

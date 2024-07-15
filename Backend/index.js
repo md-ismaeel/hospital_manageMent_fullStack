@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors")
+const cookieParser = require("cookie-parser")
 require("dotenv").config();
 
 const userRoutes = require("./Routes/user.routes");
@@ -17,11 +18,13 @@ const corsOptions = {
 const app = express();
 app.use(express.json());
 app.use(cors(corsOptions))
+app.use(cookieParser())
 
 const Port = process.env.PORT || 10000;
+const mongoDbUri = process.env.MONGODB_URI
 
 mongoose
-    .connect("mongodb://localhost:27017/hospitalManagement")
+    .connect(mongoDbUri)
     .then(() => console.log("MongoDb connection stablish successfully"))
     .catch(() => console.log("Error, while connecting with mongoDb"));
 

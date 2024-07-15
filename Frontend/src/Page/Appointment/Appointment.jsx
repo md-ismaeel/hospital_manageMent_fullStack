@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from "../../assets/Medical-log.png"
+import { DnaLoader } from '../../Components/Loader/Loader'
 
 export const Appointment = () => {
   return (
@@ -8,6 +9,7 @@ export const Appointment = () => {
         <div>
           <img src={logo} alt='mm' className='w-[300px] h-[300px]' />
         </div>
+        <DnaLoader />
       </section>
     </>
   )

@@ -8,14 +8,21 @@ const { uploadFile } = require("../Services/services");
 
 const jwtSecretKey = process.env.JWT_SECRETE_KEY;
 
-
 /* add new admin */
 const addNewAdmin = async (req, res) => {
   console.log(req.body);
 
   const { firstName, lastName, email, password, phone, dob, gender } = req.body;
 
-  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender) {
+  if (
+    !firstName ||
+    !lastName ||
+    !email ||
+    !password ||
+    !phone ||
+    !dob ||
+    !gender
+  ) {
     return res.status(409).json({
       success: false,
       message: "Please fill All Fields!",
@@ -57,7 +64,16 @@ const addNewAdmin = async (req, res) => {
 const addNewDoctor = async (req, res) => {
   // console.log(req.body);
   console.log("something");
-  const { firstName, lastName, email, password, phone, dob, gender, docDepartment } = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    phone,
+    dob,
+    gender,
+    docDepartment,
+  } = req.body;
 
   if (!req.file) {
     return res.status(400).json({
@@ -66,7 +82,16 @@ const addNewDoctor = async (req, res) => {
     });
   }
 
-  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender || !docDepartment) {
+  if (
+    !firstName ||
+    !lastName ||
+    !email ||
+    !password ||
+    !phone ||
+    !dob ||
+    !gender ||
+    !docDepartment
+  ) {
     return res.status(409).json({
       success: false,
       message: "Please fill All Fields!",
@@ -101,14 +126,21 @@ const addNewDoctor = async (req, res) => {
   });
 };
 
-
 /* add new patient */
 const addNewPatient = async (req, res) => {
   console.log(req.body);
 
   const { firstName, lastName, email, password, phone, dob, gender } = req.body;
 
-  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender) {
+  if (
+    !firstName ||
+    !lastName ||
+    !email ||
+    !password ||
+    !phone ||
+    !dob ||
+    !gender
+  ) {
     return res.status(400).json({
       success: false,
       message: "Please fill All Fields!",
@@ -139,7 +171,6 @@ const addNewPatient = async (req, res) => {
   });
 };
 
-
 /* add getProfile */
 const getProfile = async (req, res) => {
   console.log(req.user);
@@ -169,7 +200,6 @@ const getProfile = async (req, res) => {
     userData,
   });
 };
-
 
 /* user Login */
 const loginUser = async (req, res) => {
@@ -204,25 +234,40 @@ const loginUser = async (req, res) => {
 
   await UserModel.updateOne({ token: `Bearer ${token}` });
 
-  res.json({
+  res.cookie("token", token, {
+    // httpOnly: true,
+    secure: true, // for HTTPS
+    sameSite: "none", // for cross-site cookies
+    path: "/",
+    maxAge: 7200000, // 2 hours in milliseconds
+  });
+
+  res.status(200).json({
     sucess: true,
-    message: "Token Generated successfully",
+    message: "User Login Successfully",
     token: `Bearer ${token}`,
   });
 };
 
-
 /* user Logout */
 const logoutUser = async (req, res) => {
+
+  console.log("logout not working..??");
+
   console.log(req.user);
   await UserModel.findByIdAndUpdate(req.user._id, { token: null });
+
+  res.clearCookie("token", {
+    secure: true, // for HTTPS
+    sameSite: "none", // for cross-site cookies
+    path: "/",
+  });
 
   res.json({
     success: true,
     message: "User LogOut Successfully",
   });
 };
-
 
 const userController = {
   addNewAdmin: catchAsyncFun(addNewAdmin),

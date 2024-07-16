@@ -12,6 +12,7 @@ const { errorHandler } = require("./Middleware/errorHandler");
 const corsOptions = {
     origin: [
         "http://localhost:5173",
+        "https://hospital-management-pearl-alpha.vercel.app/",
     ],
     credentials: true,
 }

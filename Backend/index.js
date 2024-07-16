@@ -12,14 +12,20 @@ const { errorHandler } = require("./Middleware/errorHandler");
 const corsOptions = {
     origin: [
         "http://localhost:5173",
-        "https://hospital-management-pearl-alpha.vercel.app/",
+        "https://hospital-management-pearl-alpha.vercel.app",
     ],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }
+
 const app = express();
 app.use(express.json());
 app.use(cors(corsOptions))
 app.use(cookieParser())
+
+// Added this line to handle preflight requests
+app.options('*', cors(corsOptions));
 
 const Port = process.env.PORT || 10000;
 const mongoDbUri = process.env.MONGODB_URI

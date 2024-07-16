@@ -7,7 +7,7 @@ export const API_APPOINTMENT_BACKEND = "http://localhost:10000/api/v1/user/appoi
 export const requestOptions = {
     headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        // 'Accept': 'application/json'
     },
     withCredentials: true
 };

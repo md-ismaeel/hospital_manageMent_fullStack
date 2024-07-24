@@ -14,15 +14,7 @@ const addNewAdmin = async (req, res) => {
 
   const { firstName, lastName, email, password, phone, dob, gender } = req.body;
 
-  if (
-    !firstName ||
-    !lastName ||
-    !email ||
-    !password ||
-    !phone ||
-    !dob ||
-    !gender
-  ) {
+  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender) {
     return res.status(409).json({
       success: false,
       message: "Please fill All Fields!",
@@ -36,6 +28,8 @@ const addNewAdmin = async (req, res) => {
       message: "user already registered",
     });
   }
+
+  // const result = await uploadFile(req)
 
   const salt = bcrypt.genSaltSync(10);
   const hasPassword = bcrypt.hashSync(password, salt);
@@ -132,15 +126,7 @@ const addNewPatient = async (req, res) => {
 
   const { firstName, lastName, email, password, phone, dob, gender } = req.body;
 
-  if (
-    !firstName ||
-    !lastName ||
-    !email ||
-    !password ||
-    !phone ||
-    !dob ||
-    !gender
-  ) {
+  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender) {
     return res.status(400).json({
       success: false,
       message: "Please fill All Fields!",
@@ -246,6 +232,7 @@ const loginUser = async (req, res) => {
     sucess: true,
     message: "User Login Successfully",
     token: `Bearer ${token}`,
+    user
   });
 };
 

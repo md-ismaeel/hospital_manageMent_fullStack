@@ -2,7 +2,6 @@ const { catchAsyncFun } = require('../Middleware/errorHandler');
 const AppointmentModel = require('../Models/appointment.model');
 
 
-
 /* create new Appointments */
 const createAppointment = async (req, res) => {
     // console.log(req.body);

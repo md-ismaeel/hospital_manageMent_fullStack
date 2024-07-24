@@ -5,6 +5,8 @@ import { API_USER_BACKEND, requestOptions } from "../../Utils/utils";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { DnaLoader } from "../../Components/Loader/Loader";
+import userLogo from "../../assets/logo/user-icon.webp"
+import { PiUserCircleFill } from "react-icons/pi";
 
 
 export const Register = () => {
@@ -20,27 +22,11 @@ export const Register = () => {
     const navigate = useNavigate();
 
     const formData = [
-        {
-            name: "First Name",
-            value: firstName,
-            type: "text",
-            onChange: setFirstName,
-        },
+        { name: "First Name", value: firstName, type: "text", onChange: setFirstName, },
         { name: "Last Name", value: lastName, type: "text", onChange: setLastName },
         { name: "Email", value: email, type: "email", onChange: setEmail },
-        {
-            name: "Password",
-            value: password,
-            type: "password",
-            onChange: setPassword,
-        },
-        {
-            name: "Gender",
-            value: gender,
-            type: "select",
-            options: ["Male", "Female", "Other"],
-            onChange: setGender,
-        },
+        { name: "Password", value: password, type: "password", onChange: setPassword, },
+        { name: "Gender", value: gender, type: "select", options: ["Male", "Female", "Other"], onChange: setGender, },
         { name: "Phone", value: phone, type: "number", onChange: setPhone },
         { name: "Date of Birth", value: dob, type: "date", onChange: setDob },
     ];
@@ -58,15 +44,7 @@ export const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const userObj = {
-            firstName,
-            lastName,
-            email,
-            password,
-            gender,
-            phone,
-            dob,
-        };
+        const userObj = { firstName, lastName, email, password, gender, phone, dob };
         setLoading(true);
         try {
             const response = await axios.post(
@@ -90,11 +68,17 @@ export const Register = () => {
     };
 
     return (
-        <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full min-h-screen flex flex-col items-center justify-center">
             <form
                 onSubmit={handleSubmit}
-                className="w-[500px] min-h-[450px] flex flex-col justify-center items-center gap-2 mt-16 mb-10 bg-white p-8 border rounded"
+                className="relative w-[500px] min-h-[450px] flex flex-col justify-center items-center gap-2 mt-20 mb-10 py-4 border rounded-3xl"
             >
+                <div className="flex flex-col justify-center items-center mt-2 mb-6">
+                    <h1 ><PiUserCircleFill className="text-7xl" /></h1>
+                    {/* <img src={userLogo} alt="logo" className="text-2xl h-[65px] w-[110px]" /> */}
+                    <h1 className="text-2xl font-semibold text-slate-500">Registration Form</h1>
+                </div>
+
                 {formData.map((item, index) => (
                     <InputForm
                         key={index}
@@ -115,13 +99,13 @@ export const Register = () => {
                     <span>{loading && <DnaLoader />}</span>
                 </button>
 
-                <p>
+                <p className="mb-4">
                     Already have an account?
                     <span
                         onClick={() => navigate("/login")}
                         className="ml-2 cursor-pointer hover:text-blue-400 hover:underline"
                     >
-                        Login
+                        Login Now!
                     </span>
                 </p>
             </form>

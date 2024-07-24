@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAuthenticated } from "../../Redux/Slice/userSlice";
+import { setAdmin, setIsAuthenticated } from "../../Redux/Slice/userSlice";
 import { InputForm } from "../../Components/InputForm";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,10 +10,8 @@ import { DnaLoader } from "../../Components/Loader/Loader";
 import { PiUserCircleFill } from "react-icons/pi";
 
 
-
-
 export const Login = () => {
-    const { isAuthenticated } = useSelector((state) => state.userSlice);
+    const { isAuthenticated, admin } = useSelector((state) => state.UserSlice);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -33,20 +31,15 @@ export const Login = () => {
         const userFormData = { email, password };
 
         try {
-            const response = await axios.post(
-                `${API_USER_BACKEND}/login`,
-                userFormData,
-                requestOptions
-            );
-
+            const response = await axios.post(`${API_USER_BACKEND}/login`, userFormData, requestOptions);
             toast.success(response?.data?.message);
-            dispatch(setAuthenticated(true));
+            console.log(response.data);
+            dispatch(setIsAuthenticated(true));
+            setAdmin(response?.data)
             navigate("/");
             resetForm();
         } catch (err) {
-            toast.error(
-                err.response?.data?.message || "Error occurred while logging in"
-            );
+            toast.error(err.response?.data?.message || "Error occurred while logging in");
         } finally {
             setLoading(false);
         }
@@ -59,15 +52,17 @@ export const Login = () => {
     }, [isAuthenticated, navigate]);
 
     return (
-        <section className="w-full min-h-screen flex justify-center items-center">
+        <section className="w-full min-h-screen flex flex-col justify-center items-center">
+            <div className="text-2xl font-semibold">Welcome to ILcare-Hospital</div>
             <form
                 onSubmit={handleForm}
-                className="w-[450px] min-h-[100px] flex flex-col justify-center items-center gap-4 border  py-4 rounded-3xl mt-10"
+                className="w-[450px] min-h-[100px] flex flex-col justify-center items-center gap-4 border  py-4 rounded-3xl mt-4"
             >
-                <div className="flex flex-col justify-center items-center mt-2 mb-6">
-                    <h1 ><PiUserCircleFill className="text-7xl" /></h1>
+                <div className="flex flex-col justify-center items-center mt-2 mb-2">
+                    <h1 ><PiUserCircleFill className="text-7xl text-slate-600" /></h1>
                     {/* <img src={userLogo} alt="logo" className="text-2xl h-[65px] w-[110px]" /> */}
                     <h1 className="text-2xl font-semibold text-slate-500">Login</h1>
+
                 </div>
 
                 <InputForm

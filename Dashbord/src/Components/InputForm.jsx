@@ -16,12 +16,14 @@ export const InputForm = ({ value, placeHolder, type, onChange, options }) => {
             <option value="" disabled>
               {placeHolder}
             </option>
+
             {options.map((option, index) => (
               <option key={index} value={option}>
                 {option}
               </option>
             ))}
           </select>
+
         ) : type === "date" ? (
           <div className="relative w-[100%] h-[100%]">
             <input
@@ -32,13 +34,16 @@ export const InputForm = ({ value, placeHolder, type, onChange, options }) => {
               onBlur={() => setIsDateFocused(false)}
               className="w-[100%] h-[100%] px-6 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
             />
+
             {!isDateFocused && !value && (
               <div className="absolute px-6 top-3 left-1 flex items-center pointer-events-none text-gray-400 bg-white">
                 {placeHolder}
               </div>
             )}
+
           </div>
         ) : (
+
           <input
             type={type}
             placeholder={placeHolder}
@@ -46,6 +51,7 @@ export const InputForm = ({ value, placeHolder, type, onChange, options }) => {
             onChange={onChange}
             className="w-[100%] h-[100%] px-6 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           />
+
         )}
       </section>
     </>

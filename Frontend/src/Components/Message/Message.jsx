@@ -3,6 +3,7 @@ import { InputForm } from "../InputForm";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { API_USER_BACKEND, requestOptions } from "../../Utils/utils";
+import { DnaLoader, TailSpinLoader } from "../Loader/Loader";
 
 export const Message = () => {
     const [firstName, setFirstName] = useState("");
@@ -10,6 +11,7 @@ export const Message = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [message, setMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false)
 
     const formData = [
         { name: "First Name", value: firstName, type: "text", onChange: setFirstName, },
@@ -28,6 +30,7 @@ export const Message = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
 
         const userFormData = { firstName, lastName, email, phone, message };
         try {
@@ -41,6 +44,8 @@ export const Message = () => {
         } catch (err) {
             console.error(err);
             toast.error(err.response?.data?.message || "Error occurred while sending message");
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -51,7 +56,7 @@ export const Message = () => {
 
                 <form
                     onSubmit={handleSubmit}
-                    className="w-11/12 min-h-[200px] flex flex-wrap justify-center items-center bg-white border rounded gap-4 py-10 mb-10"
+                    className="w-11/12 min-h-[200px] flex flex-wrap justify-center items-center bg-white border rounded-xl gap-4 py-10 mb-10"
                 >
                     {formData.map((item, index) => (
                         <InputForm
@@ -75,9 +80,10 @@ export const Message = () => {
                     <button
                         type="submit"
                         // className="w-[350px] h-[50px] mt-4 bg-blue-500 text-white p-2 rounded"
-                        className="w-[350px] h-[50px] mt-4 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
+                        className="relative flex justify-center items-center gap-2 w-[350px] h-[50px] mt-4 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
                     >
-                        Send Message
+                        <span className="">Send Message</span>
+                        <span className="absolute top-3 right-16">{isLoading && <DnaLoader />}</span>
                     </button>
                 </form>
             </section>

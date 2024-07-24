@@ -1,13 +1,12 @@
-import React from "react";
-import imageOfBiography from "../../assets/about.png"
+import React from "react"
 
-export const Biography = () => {
+export const Biography = ({ imageUrl }) => {
     return (
         <>
             <section className="container-biography w-full h-auto flex">
 
                 <div className="banner w-1/2 flex justify-center items-center">
-                    <img src={imageOfBiography} alt="whoever" className="h-[500px]" />
+                    <img src={imageUrl} alt="whoever" className="h-[500px]" />
                 </div>
 
                 <div className="banner w-1/2 px-6">

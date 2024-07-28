@@ -10,11 +10,19 @@ const jwtSecretKey = process.env.JWT_SECRETE_KEY;
 
 /* add new admin */
 const addNewAdmin = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   const { firstName, lastName, email, password, phone, dob, gender } = req.body;
 
-  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender) {
+  if (
+    !firstName ||
+    !lastName ||
+    !email ||
+    !password ||
+    !phone ||
+    !dob ||
+    !gender
+  ) {
     return res.status(409).json({
       success: false,
       message: "Please fill All Fields!",
@@ -57,7 +65,7 @@ const addNewAdmin = async (req, res) => {
 /* add new doctor */
 const addNewDoctor = async (req, res) => {
   // console.log(req.body);
-  console.log("something");
+  // console.log("something");
   const {
     firstName,
     lastName,
@@ -122,11 +130,19 @@ const addNewDoctor = async (req, res) => {
 
 /* add new patient */
 const addNewPatient = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   const { firstName, lastName, email, password, phone, dob, gender } = req.body;
 
-  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender) {
+  if (
+    !firstName ||
+    !lastName ||
+    !email ||
+    !password ||
+    !phone ||
+    !dob ||
+    !gender
+  ) {
     return res.status(400).json({
       success: false,
       message: "Please fill All Fields!",
@@ -159,26 +175,26 @@ const addNewPatient = async (req, res) => {
 
 /* get all doctors*/
 const allDoctors = async (req, res) => {
+  try {
+    const doctors = await UserModel.find({ role: "DOCTOR" });
 
-  const doctors = await UserModel.find({ role: "DOCTOR" })
+    if (doctors.length === 0) {
+      return res.status(404).json({ message: "No doctors found" });
+    }
 
-  if (doctors.length === 0) {
-    return res.status(404).json({
+    res.status(200).json({ doctors });
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    res.status(500).json({
       success: false,
-      message: "No doctors found!!",
-    })
+      message: "Internal server error"
+    });
   }
-
-  res.status(200).json({
-    success: true,
-    message: "all doctors fetched!!",
-    results: doctors
-  })
-}
+};
 
 /* add getProfile */
 const getProfile = async (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
 
   const genders = {
     M: "Male",
@@ -256,10 +272,9 @@ const loginUser = async (req, res) => {
 
 /* user Logout */
 const logoutUser = async (req, res) => {
+  // console.log("logout not working..??");
 
-  console.log("logout not working..??");
-
-  console.log(req.user);
+  // console.log(req.user);
   await UserModel.findByIdAndUpdate(req.user._id, { token: null });
 
   res.clearCookie("token", {
@@ -281,7 +296,7 @@ const userController = {
   getProfile: catchAsyncFun(getProfile),
   loginUser: catchAsyncFun(loginUser),
   logoutUser: catchAsyncFun(logoutUser),
-  allDoctors: catchAsyncFun(allDoctors)
+  allDoctors
 };
 
 module.exports = userController;

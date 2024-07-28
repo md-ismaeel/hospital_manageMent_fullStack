@@ -1,12 +1,6 @@
 const express = require("express");
 
-const {
-    addNewAdmin,
-    addNewDoctor,
-    addNewPatient,
-    getProfile,
-    loginUser,
-    logoutUser,
+const { addNewAdmin, addNewDoctor, addNewPatient, getProfile, loginUser, logoutUser, allDoctors,
 } = require("../Controllers/user.controller");
 
 const passport = require("../Middleware/userMiddleware");
@@ -33,7 +27,8 @@ userRouter.post(
 userRouter.get(
     "allDoctors",
     passport.authenticate("jwt", { session: false }),
-    Authorization(["ADMIN"])
+    Authorization(["ADMIN"]),
+    allDoctors
 );
 
 userRouter.post("/register/patient", addNewPatient);

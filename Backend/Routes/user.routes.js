@@ -1,6 +1,13 @@
 const express = require("express");
 
-const { addNewAdmin, addNewDoctor, addNewPatient, getProfile, loginUser, logoutUser } = require("../Controllers/user.controller");
+const {
+    addNewAdmin,
+    addNewDoctor,
+    addNewPatient,
+    getProfile,
+    loginUser,
+    logoutUser,
+} = require("../Controllers/user.controller");
 
 const passport = require("../Middleware/userMiddleware");
 const Authorization = require("../Middleware/authorization");
@@ -21,6 +28,12 @@ userRouter.post(
     Authorization(["ADMIN"]),
     upload.single("file"),
     addNewDoctor
+);
+
+userRouter.get(
+    "allDoctors",
+    passport.authenticate("jwt", { session: false }),
+    Authorization(["ADMIN"])
 );
 
 userRouter.post("/register/patient", addNewPatient);

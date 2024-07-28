@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAdmin, setIsAuthenticated } from "../../Redux/Slice/userSlice";
+import { setIsAuthenticated } from "../../Redux/Slice/userSlice";
 import { InputForm } from "../../Components/InputForm";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,7 +11,7 @@ import { PiUserCircleFill } from "react-icons/pi";
 
 
 export const Login = () => {
-    const { isAuthenticated, admin } = useSelector((state) => state.UserSlice);
+    const { isAuthenticated } = useSelector((state) => state.UserSlice);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -32,10 +32,8 @@ export const Login = () => {
 
         try {
             const response = await axios.post(`${API_USER_BACKEND}/login`, userFormData, requestOptions);
-            toast.success(response?.data?.message);
-            console.log(response.data);
             dispatch(setIsAuthenticated(true));
-            setAdmin(response?.data)
+            toast.success(response.data.message);
             navigate("/");
             resetForm();
         } catch (err) {
@@ -45,6 +43,7 @@ export const Login = () => {
         }
     };
 
+
     useEffect(() => {
         if (isAuthenticated) {
             navigate("/");
@@ -53,16 +52,14 @@ export const Login = () => {
 
     return (
         <section className="w-full min-h-screen flex flex-col justify-center items-center">
-            <div className="text-2xl font-semibold">Welcome to ILcare-Hospital</div>
+            <div className="text-2xl font-semibold">Welcome to HealthCare Center</div>
             <form
                 onSubmit={handleForm}
-                className="w-[450px] min-h-[100px] flex flex-col justify-center items-center gap-4 border  py-4 rounded-3xl mt-4"
+                className="w-[450px] min-h-[100px] flex flex-col justify-center items-center gap-4 border-2  py-4 rounded-3xl mt-4"
             >
                 <div className="flex flex-col justify-center items-center mt-2 mb-2">
                     <h1 ><PiUserCircleFill className="text-7xl text-slate-600" /></h1>
-                    {/* <img src={userLogo} alt="logo" className="text-2xl h-[65px] w-[110px]" /> */}
                     <h1 className="text-2xl font-semibold text-slate-500">Login</h1>
-
                 </div>
 
                 <InputForm
@@ -87,14 +84,18 @@ export const Login = () => {
                     <span>{loading && <DnaLoader />}</span>
                 </button>
 
-                <p className="mb-4">
-                    Don't have an account?
-                    <span
-                        onClick={() => navigate("/register")}
-                        className="ml-2 cursor-pointer hover:text-blue-400 hover:underline"
-                    >
-                        Register
-                    </span>
+                <p className="mb-1">
+                    {isAuthenticated && (
+                        <>
+                            Don't have an account?
+                            <span
+                                onClick={() => navigate("/register")}
+                                className="ml-2 cursor-pointer hover:text-blue-400 hover:underline"
+                            >
+                                Register
+                            </span>
+                        </>
+                    )}
                 </p>
 
             </form>

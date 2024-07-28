@@ -3,3 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.message-item::-webkit-scrollbar {
+  display: none;
+}
+
+.newAdmin::-webkit-scrollbar {
+  display: none;
+}

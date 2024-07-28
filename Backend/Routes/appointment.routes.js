@@ -17,7 +17,7 @@ appointmentRoutes.post(
 appointmentRoutes.post(
     "/allAppointments",
     passport.authenticate("jwt", { session: false }),
-    Authorization(["ADMIN", "DOCTOR", "PATIENT"]),
+    Authorization(["ADMIN", "DOCTOR"]),
     getAllAppointments
 );
 

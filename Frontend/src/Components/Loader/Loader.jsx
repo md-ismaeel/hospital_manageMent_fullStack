@@ -7,7 +7,7 @@ export const DnaLoader = () => {
             <DNA
                 visible={true}
                 height="30"
-                width="30"
+                width="40"
                 ariaLabel="dna-loading"
                 wrapperStyle={{}}
                 wrapperClass="dna-wrapper"

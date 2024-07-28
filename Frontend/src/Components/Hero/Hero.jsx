@@ -9,7 +9,7 @@ export const Hero = ({ title, imageUrl, imageUrlVector }) => {
                     <div className="banner w-1/2 px-10">
                         <h1 className='text-2xl font-bold'>{title}</h1>
                         <p className='mt-8'>
-                            Healthcare Medical is a state-of-the-art facility dedicated
+                            HealthCare Center is a state-of-the-art facility dedicated
                             to providing comprehensive healthcare services with compassion and
                             expertise. Our team of skilled professionals is committed to
                             delivering personalized care tailored to each patient's needs. At

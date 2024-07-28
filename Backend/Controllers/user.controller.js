@@ -157,6 +157,25 @@ const addNewPatient = async (req, res) => {
   });
 };
 
+/* get all doctors*/
+const allDoctors = async (req, res) => {
+
+
+  const doctors = UserModel.find({ role: "DOCTOR" })
+
+  if (doctors.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: "No doctors found!!"
+    })
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "all doctors fetched"
+  })
+}
+
 /* add getProfile */
 const getProfile = async (req, res) => {
   console.log(req.user);
@@ -232,7 +251,6 @@ const loginUser = async (req, res) => {
     sucess: true,
     message: "User Login Successfully",
     token: `Bearer ${token}`,
-    user
   });
 };
 
@@ -263,6 +281,7 @@ const userController = {
   getProfile: catchAsyncFun(getProfile),
   loginUser: catchAsyncFun(loginUser),
   logoutUser: catchAsyncFun(logoutUser),
+  allDoctors: catchAsyncFun(allDoctors)
 };
 
 module.exports = userController;

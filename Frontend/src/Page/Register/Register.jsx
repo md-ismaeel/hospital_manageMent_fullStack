@@ -71,7 +71,7 @@ export const Register = () => {
         <div className="w-full min-h-screen flex flex-col items-center justify-center">
             <form
                 onSubmit={handleSubmit}
-                className="relative w-[500px] min-h-[450px] flex flex-col justify-center items-center gap-2 mt-20 mb-10 py-4 border rounded-3xl"
+                className="relative w-[500px] min-h-[450px] flex flex-col justify-center items-center gap-2 mt-20 mb-10 py-4 border-2 rounded-3xl"
             >
                 <div className="flex flex-col justify-center items-center mt-2 mb-6">
                     <h1 ><PiUserCircleFill className="text-7xl" /></h1>
@@ -92,11 +92,11 @@ export const Register = () => {
 
                 <button
                     type="submit"
-                    className="w-[400px] mt-4 flex justify-center items-center gap-2 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
+                    className="relative w-[400px] mt-4 flex justify-center items-center gap-2 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
                     disabled={loading}
                 >
                     <span> Register</span>
-                    <span>{loading && <DnaLoader />}</span>
+                    <span className="absolute right-[30%]">{loading && <DnaLoader />}</span>
                 </button>
 
                 <p className="mb-4">

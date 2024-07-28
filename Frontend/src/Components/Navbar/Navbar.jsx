@@ -21,14 +21,9 @@ export const Navbar = () => {
             const response = await axios.post(`${API_USER_BACKEND}/logout`, {}, {
                 withCredentials: true
             });
-
-            if (response.data.success) {
-                dispatch(setAuthenticated(false));
-                toast.success(response.data.message);
-                navigate("/")
-            } else {
-                throw new Error(response.data.message || "Logout failed")
-            }
+            dispatch(setAuthenticated(false));
+            toast.success(response.data.message);
+            navigate("/")
 
         } catch (err) {
             toast.error(err.response?.data?.message || "Logout failed");
@@ -82,6 +77,7 @@ export const Navbar = () => {
                     <span className="absolute top-2 right-2">{isLoading && <TailSpinLoader />}</span>
                 </button>
             )}
+
         </div>
     );
 };

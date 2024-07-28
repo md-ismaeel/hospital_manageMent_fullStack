@@ -11,7 +11,6 @@ import { PiUserCircleFill } from "react-icons/pi";
 
 
 
-
 export const Login = () => {
     const { isAuthenticated } = useSelector((state) => state.userSlice);
     const dispatch = useDispatch();
@@ -33,20 +32,14 @@ export const Login = () => {
         const userFormData = { email, password };
 
         try {
-            const response = await axios.post(
-                `${API_USER_BACKEND}/login`,
-                userFormData,
-                requestOptions
-            );
+            const response = await axios.post(`${API_USER_BACKEND}/login`, userFormData, requestOptions);
 
             toast.success(response?.data?.message);
             dispatch(setAuthenticated(true));
             navigate("/");
             resetForm();
         } catch (err) {
-            toast.error(
-                err.response?.data?.message || "Error occurred while logging in"
-            );
+            toast.error(err.response?.data?.message || "Error occurred while logging in");
         } finally {
             setLoading(false);
         }
@@ -59,50 +52,53 @@ export const Login = () => {
     }, [isAuthenticated, navigate]);
 
     return (
-        <section className="w-full min-h-screen flex justify-center items-center">
-            <form
-                onSubmit={handleForm}
-                className="w-[450px] min-h-[100px] flex flex-col justify-center items-center gap-4 border  py-4 rounded-3xl mt-10"
-            >
-                <div className="flex flex-col justify-center items-center mt-2 mb-6">
-                    <h1 ><PiUserCircleFill className="text-7xl" /></h1>
-                    {/* <img src={userLogo} alt="logo" className="text-2xl h-[65px] w-[110px]" /> */}
-                    <h1 className="text-2xl font-semibold text-slate-500">Login</h1>
-                </div>
-
-                <InputForm
-                    type="email"
-                    value={email}
-                    placeHolder="Enter Your Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <InputForm
-                    type="password"
-                    value={password}
-                    placeHolder="Enter Your Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-
-                <button
-                    type="submit"
-                    className="w-[400px] mt-4 text-md flex justify-center items-center gap-2 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
-                    disabled={loading}
+        <>
+            <section className="w-full min-h-screen flex flex-col justify-center items-center">
+                <div className="text-2xl font-semibold">Welcome to HealthCare Center</div>
+                <form
+                    onSubmit={handleForm}
+                    className="w-[450px] min-h-[100px] flex flex-col justify-center items-center gap-4 border-2  py-4 rounded-3xl mt-4"
                 >
-                    <span>Login</span>
-                    <span>{loading && <DnaLoader />}</span>
-                </button>
+                    <div className="flex flex-col justify-center items-center mt-2 mb-2">
+                        <h1 ><PiUserCircleFill className="text-7xl text-slate-600" /></h1>
+                        {/* <img src={userLogo} alt="logo" className="text-2xl h-[65px] w-[110px]" /> */}
+                        <h1 className="text-2xl font-semibold text-slate-500">Login</h1>
 
-                <p className="mb-4">
-                    Don't have an account?
-                    <span
-                        onClick={() => navigate("/register")}
-                        className="ml-2 cursor-pointer hover:text-blue-400 hover:underline"
+                    </div>
+
+                    <InputForm
+                        type="email"
+                        value={email}
+                        placeHolder="Enter Your Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <InputForm
+                        type="password"
+                        value={password}
+                        placeHolder="Enter Your Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+
+                    <button
+                        type="submit"
+                        className="relative w-[400px] mt-4 text-md flex justify-center items-center gap-2 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
+                        disabled={loading}
                     >
-                        Register
-                    </span>
-                </p>
+                        <span className="">Login</span>
+                        <span className="absolute right-[35%]">{loading && <DnaLoader />}</span>
+                    </button>
 
-            </form>
-        </section>
+                    <p className="mb-4">
+                        <span>Don't have an account?</span>
+                        <span
+                            onClick={() => navigate("/register")}
+                            className="ml-2 cursor-pointer hover:text-blue-400 hover:underline"
+                        >
+                            Register
+                        </span>
+                    </p>
+                </form>
+            </section>
+        </>
     );
 };

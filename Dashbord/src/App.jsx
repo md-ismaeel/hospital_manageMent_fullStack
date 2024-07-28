@@ -1,9 +1,13 @@
-import { useState } from 'react'
 import './App.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { Home } from './Page/Home/Home'
+import { Home } from './Pages/Home/Home'
 import { Layout } from './Layout/Layout'
-import { Login } from './Page/Login/Login'
+import { Login } from './Pages/Login/Login'
+import { Messages } from './Pages/Messages/Messages'
+import { NewAdmin } from './Pages/NewAdmin/NewAdmin'
+import { NewDoctors } from './Pages/NewDoctor/NewDoctors'
+
+
 
 function App() {
 
@@ -21,7 +25,18 @@ function App() {
           path: "/",
           element: <Home />
         },
-        {}
+        {
+          path: "adminRegister",
+          element: <NewAdmin />
+        },
+        {
+          path: "doctorRegister",
+          element: <NewDoctors />
+        },
+        {
+          path: "/message",
+          element: <Messages />
+        }
       ]
     }
   ])
@@ -33,4 +48,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

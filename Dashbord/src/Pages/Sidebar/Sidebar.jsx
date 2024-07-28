@@ -45,10 +45,10 @@ export const Sidebar = () => {
 
                 <div className="links min-h-screen flex flex-col justify-center items-center gap-6 text-2xl">
                     <FaHome onClick={() => navigate("/")} className='cursor-pointer' />
-                    <MdAddModerator onClick={() => navigate("/newAdmin")} className='cursor-pointer' />
-                    <FaUserPlus onClick={() => navigate("/newDoctor")} className='cursor-pointer' />
+                    <MdAddModerator onClick={() => navigate("/adminRegister")} className='cursor-pointer' />
+                    <FaUserPlus onClick={() => navigate("/doctorRegister")} className='cursor-pointer' />
                     <FaUserDoctor onClick={() => navigate("/doctors")} className='cursor-pointer' />
-                    <RiMessage2Fill onClick={() => navigate("")} className='cursor-pointer' />
+                    <RiMessage2Fill onClick={() => navigate("/message")} className='cursor-pointer' />
                     <MdOutlineLogout onClick={handleLogout} className='cursor-pointer' />
                 </div>
 

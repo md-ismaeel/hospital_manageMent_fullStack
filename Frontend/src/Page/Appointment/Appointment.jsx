@@ -8,14 +8,17 @@ import { toast } from "react-toastify";
 import { API_USER_BACKEND, requestOptions } from "../../Utils/utils";
 import axios from "axios";
 import { InputForm } from "../../Components/InputForm";
+import { useSelector } from "react-redux"
 
 export const Appointment = () => {
+
+  const { isAuthenticated } = useSelector((state) => state.userSlice)
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [dob, setDob] = useState("");
+  const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
   const [department, setDepartment] = useState("");
@@ -23,7 +26,6 @@ export const Appointment = () => {
   const [doctorLastName, setDoctorLastName] = useState("");
   const [address, setAddress] = useState("");
   const [hasVisited, setHasVisited] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
 
   const departmentsArray = [
@@ -40,46 +42,26 @@ export const Appointment = () => {
 
   const formData = [
     {
-      name: "First Name",
-      value: firstName,
-      type: "text",
-      onChange: setFirstName,
+      name: "First Name", value: firstName, type: "text", onChange: setFirstName,
     },
     { name: "Last Name", value: lastName, type: "text", onChange: setLastName },
     { name: "Email", value: email, type: "email", onChange: setEmail },
     {
-      name: "Select gender",
-      value: gender,
-      type: "select",
-      options: ["Male", "Female", "Other"],
-      onChange: setGender,
+      name: "Select gender", value: gender, type: "select", options: ["Male", "Female", "Other"], onChange: setGender,
     },
     { name: "Phone", value: phone, type: "number", onChange: setPhone },
     { name: "Date of Birth", value: dob, type: "date", onChange: setDob },
     {
-      name: "appointment Date",
-      value: appointmentDate,
-      type: "date",
-      onChange: setAppointmentDate,
+      name: "appointment Date", value: appointmentDate, type: "date", onChange: setAppointmentDate,
     },
     {
-      name: " Select department",
-      value: department,
-      type: "select",
-      options: departmentsArray,
-      onChange: setDepartment,
+      name: " Select department", value: department, type: "select", options: departmentsArray, onChange: setDepartment,
     },
     {
-      name: "doctor FirstName",
-      value: doctorFirstName,
-      type: "text",
-      onChange: setDoctorFirstName,
+      name: "doctor FirstName", value: doctorFirstName, type: "text", onChange: setDoctorFirstName,
     },
     {
-      name: "doctor LastName",
-      value: doctorLastName,
-      type: "text",
-      onChange: setDoctorLastName,
+      name: "doctor LastName", value: doctorLastName, type: "text", onChange: setDoctorLastName,
     },
   ];
 
@@ -97,23 +79,26 @@ export const Appointment = () => {
     setAddress("")
   };
 
-  const bookAppointment = async () => {
+  const bookAppointment = async (e) => {
+    e.preventDefault();
+
+    if (!isAuthenticated) {
+      toast.error("Please log in to book an appointment");
+      navigate("/login");
+      return;
+    }
+
     setIsLoading(true);
-    const userDataForm = { firstName, lastName, email, dob };
+    const userDataForm = { firstName, lastName, email, dob, phone, gender, appointmentDate, department, doctorFirstName, doctorLastName, address, hasVisited };
 
     try {
-      const response = await axios(
-        `${API_USER_BACKEND}/`,
-        userDataForm,
-        requestOptions
-      );
-      toast.success(response?.data?.message);
+      const response = await axios.post(`${API_USER_BACKEND}/appointment/create`, userDataForm, requestOptions);
+      // console.log(response);
+      toast.success(response.data.message);
       resetForm();
     } catch (err) {
-      toast.error(
-        err.response?.data?.message ||
-        "Error occurred while booking appointments"
-      );
+      // console.log(err.response);
+      toast.error(err.response.data.message || "Error while booking appointments");
     } finally {
       setIsLoading(false);
     }
@@ -134,6 +119,7 @@ export const Appointment = () => {
           onSubmit={bookAppointment}
           className="w-11/12 h-auto flex flex-wrap justify-center items-center gap-5 mt-6 border py-10 rounded-xl"
         >
+
           {formData.map((item, index) => (
             <InputForm
               key={index}
@@ -144,6 +130,7 @@ export const Appointment = () => {
               onChange={(e) => item.onChange(e.target.value)}
             />
           ))}
+
           <textarea
             type="text"
             name="Address..!!"
@@ -155,11 +142,11 @@ export const Appointment = () => {
 
           <button
             type="submit"
-            className="w-[350px] mt-4 flex justify-center items-center gap-2 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
+            className="relative w-[350px] mt-4 flex justify-center items-center gap-2 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
             disabled={isLoading}
           >
-            <span> Book Appointment</span>
-            <span>{isLoading && <DnaLoader />}</span>
+            <span>Book an Appointment</span>
+            <span className="absolute right-[12%]">{isLoading && <DnaLoader />}</span>
           </button>
         </form>
         <p className="w-11/12 flex justify-end items-center mb-20">

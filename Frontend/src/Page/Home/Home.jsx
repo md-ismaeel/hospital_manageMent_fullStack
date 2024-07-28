@@ -11,7 +11,7 @@ export const Home = () => {
     return (
         <>
             <Hero
-                title={"Welcome to Healthcare Medical | Your Trusted Healthcare Provider"}
+                title={"Welcome to HealthCare Center | Your Trusted Healthcare Provider"}
                 imageUrl={imageOfHero}
                 imageUrlVector={imageOfVector}
             />

@@ -52,7 +52,7 @@ export const NewDoctors = () => {
             name: "Password", value: password, type: "password", onChange: setPassword,
         },
         {
-            name: "Gender", value: gender, type: "select", options: ["Male", "Female", "Other"], onChange: setGender,
+            name: "Gender", value: gender, type: "select", options: ["M", "F", "T", "O"], onChange: setGender,
         },
         {
             name: "doctorDepartment", value: doctorDepartment, type: "select", options: departmentsArray, onChange: setDoctorDepartment,

@@ -26,7 +26,7 @@ export const NewAdmin = () => {
         { name: "Last Name", value: lastName, type: "text", onChange: setLastName },
         { name: "Email", value: email, type: "email", onChange: setEmail },
         { name: "Password", value: password, type: "password", onChange: setPassword, },
-        { name: "Gender", value: gender, type: "select", options: ["Male", "Female", "Other"], onChange: setGender, },
+        { name: "Gender", value: gender, type: "select", options: ["M", "F", "T", "O"], onChange: setGender, },
         { name: "Phone", value: phone, type: "number", onChange: setPhone },
         { name: "Date of Birth", value: dob, type: "date", onChange: setDob },
     ];

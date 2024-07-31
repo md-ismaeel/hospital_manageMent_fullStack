@@ -93,14 +93,13 @@ export const NewDoctors = () => {
             const response = await axios.post(`${API_USER_BACKEND}/register/doctor`, formData,
                 {
                     headers: {
-                        // ...requestOptions.headers,
+                        ...requestOptions.headers,
                         'Content-Type': 'multipart/form-data',
                     },
                     withCredentials: true,
                 });
 
-            if (response.data.success === true) {
-                navigate("/login");
+            if (response.data.success) {
                 toast.success(response.data.message);
                 resetForm();
             }

@@ -10,21 +10,18 @@ export const Doctors = () => {
     const { doctor } = useSelector((state) => state.UserSlice);
     const dispatch = useDispatch();
     const [isLoading, setLoading] = useState(false);
-    // const [error, setError] = useState(null);
 
     const fetchDoctors = async () => {
         setLoading(true);
-        // setError(null); // Reset error state before fetching
 
         try {
             const response = await axios.get(`${API_USER_BACKEND}/allDoctors`, requestOptions);
             console.log(response);
             dispatch(setDoctor(response.data.doctors));
-            toast.success(response.data.message)
-
+            toast.success(response.data.message);
         } catch (err) {
             console.error(err);
-            toast.error(err.response.data.message || 'An error occurred while fetching doctors!')
+            toast.error(err.response.data.message || 'An error occurred while fetching doctors!');
         } finally {
             setLoading(false);
         }
@@ -38,7 +35,7 @@ export const Doctors = () => {
 
     if (isLoading) {
         return (
-            <div className="w-full min-h-screen flex justify-center items-center rounded-l-3xl bg-slate-100">
+            <div className="w-full min-h-screen flex justify-center items-center bg-slate-100">
                 <DnaLoader />
             </div>
         );
@@ -46,16 +43,18 @@ export const Doctors = () => {
 
     return (
         <section className="w-full min-h-screen flex flex-col justify-start items-start rounded-l-3xl bg-slate-100 px-5">
-            <h1 className="text-2xl font-bold mb-4 mt-3">Doctors List</h1>
-            <ul className="w-full flex flex-wrap justify-start items-center gap-3">
+            <h1 className="text-2xl font-bold mb-2 mt-4">Doctors List</h1>
+            <ul className="w-full flex flex-wrap justify-start items-center gap-4">
                 {doctor.length > 0 ? (
                     doctor.map((doc) => (
-                        <li key={doc._id} className="w-[270px] h-[300px] border-2 px-3 py-1 rounded-xl shadow">
-                            <img src={doc.docAvatar} alt={doc.firstName} className='w-full h-[150px] rounded-md mt-1 mb-2' />
-                            <h3 className="text-md">Name:- <span className="font-semibold ml-1 text-gray-600">{`${doc.firstName} ${doc.lastName}`}</span></h3>
-                            <p className="mt-1">Email:- <span className="text-gray-600">{doc.email}</span></p>
-                            <p className="mt-1">Phone:- <span className="text-gray-600">{doc.phone}</span></p>
-                            <p className="mt-1">Department:- <span className="text-gray-600">{doc.docDepartment}</span></p>
+                        <li key={doc._id} className="w-[270px] h-auto flex flex-col justify-center items-start border-2 border-gray-300 px-4 py-6 gap-1 rounded-xl shadow-lg bg-white">
+                            <div className='w-full flex flex-col justify-center items-center mb-3'>
+                                <img src={doc.docAvatar} alt={doc.firstName} className='w-[150px] h-[150px] rounded-full mb-2 object-cover' />
+                                <h3 className="text-xl font-semibold text-gray-700">{`${doc.firstName} ${doc.lastName}`}</h3>
+                            </div>
+                            <p className="text-sm text-gray-600"><span className="font-semibold">Email:</span> {doc.email}</p>
+                            <p className="text-sm text-gray-600"><span className="font-semibold">Phone:</span> {doc.phone}</p>
+                            <p className="text-sm text-gray-600"><span className="font-semibold">Department:</span> {doc.docDepartment}</p>
                         </li>
                     ))
                 ) : (

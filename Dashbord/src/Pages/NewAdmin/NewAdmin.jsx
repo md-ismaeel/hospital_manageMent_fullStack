@@ -87,11 +87,11 @@ export const NewAdmin = () => {
 
                     <button
                         type="submit"
-                        className="w-[400px] mt-4 flex justify-center items-center gap-2 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
+                        className="relative w-[400px] mt-4 flex justify-center items-center gap-2 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
                         disabled={loading}
                     >
                         <span> Register</span>
-                        <span>{loading && <DnaLoader />}</span>
+                        <span className="absolute right-[30%]">{loading && <DnaLoader />}</span>
                     </button>
 
                     <p className="mb-4">

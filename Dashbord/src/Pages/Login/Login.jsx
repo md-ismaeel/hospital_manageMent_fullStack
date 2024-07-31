@@ -62,6 +62,7 @@ export const Login = () => {
                     <h1 className="text-2xl font-semibold text-slate-500">Login</h1>
                 </div>
 
+                <p className="text-md text-slate-600">only admin can Login</p>
                 <InputForm
                     type="email"
                     value={email}
@@ -80,8 +81,8 @@ export const Login = () => {
                     className="relative w-[400px] mt-4 text-md flex justify-center items-center gap-2 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2 cursor-pointer"
                     disabled={loading}
                 >
-                     <span className="">Login</span>
-                     <span className="absolute right-[35%]">{loading && <DnaLoader />}</span>
+                    <span className="">Login</span>
+                    <span className="absolute right-[35%]">{loading && <DnaLoader />}</span>
                 </button>
 
                 <p className="mb-1">

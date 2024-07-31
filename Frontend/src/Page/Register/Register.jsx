@@ -26,7 +26,7 @@ export const Register = () => {
         { name: "Last Name", value: lastName, type: "text", onChange: setLastName },
         { name: "Email", value: email, type: "email", onChange: setEmail },
         { name: "Password", value: password, type: "password", onChange: setPassword, },
-        { name: "Gender", value: gender, type: "select", options: ["Male", "Female", "Other"], onChange: setGender, },
+        { name: "Gender", value: gender, type: "select", options: ["M", "F", "T", "O"], onChange: setGender, },
         { name: "Phone", value: phone, type: "number", onChange: setPhone },
         { name: "Date of Birth", value: dob, type: "date", onChange: setDob },
     ];
@@ -47,21 +47,25 @@ export const Register = () => {
         const userObj = { firstName, lastName, email, password, gender, phone, dob };
         setLoading(true);
         try {
-            const response = await axios.post(
-                `${API_USER_BACKEND}/register/patient`,
-                userObj,
-                requestOptions
-            );
-            const data = response.data;
-            console.log(data);
-
-            toast.success(response.data.message);
-
-            resetForm();
-            navigate("/login");
+            const response = await axios.post(`${API_USER_BACKEND}/register/patient`, userObj, requestOptions);
+            console.log(response);
+            if (response.data.success) {
+                toast.success(response.data.message);
+                resetForm();
+                navigate("/login");
+            } else {
+                // Handle case where success is false but no error was thrown
+                toast.error(response.data.message || "Registration failed");
+            }
         } catch (err) {
             console.error(err);
-            toast.error(err.response?.data?.message || "An error occurred");
+            if (err.response?.data?.message) {
+                toast.error(err.response.data.message);
+            } else if (err.message) {
+                toast.error(err.message);
+            } else {
+                toast.error("An unexpected error occurred");
+            }
         } finally {
             setLoading(false);
         }

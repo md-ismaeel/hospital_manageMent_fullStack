@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "./../../assets/logo/med-logo.png";
 import { API_USER_BACKEND } from "../../Utils/utils";
-import { setAuthenticated } from "../../Redux/Slice/userSlice";
+import { setIsAuthenticated } from "../../Redux/Slice/userSlice";
 import { TailSpinLoader } from "../Loader/Loader";
 
 export const Navbar = () => {
@@ -21,7 +21,7 @@ export const Navbar = () => {
             const response = await axios.post(`${API_USER_BACKEND}/logout`, {}, {
                 withCredentials: true
             });
-            dispatch(setAuthenticated(false));
+            dispatch(setIsAuthenticated(false));
             toast.success(response.data.message);
             navigate("/")
 

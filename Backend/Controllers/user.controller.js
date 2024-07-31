@@ -14,14 +14,7 @@ const addNewAdmin = async (req, res) => {
 
   const { firstName, lastName, email, password, phone, dob, gender } = req.body;
 
-  if (
-    !firstName ||
-    !lastName ||
-    !email ||
-    !password ||
-    !phone ||
-    !dob ||
-    !gender
+  if (!firstName || !lastName || !email || !password || !phone || !dob || !gender
   ) {
     return res.status(409).json({
       success: false,
@@ -231,6 +224,13 @@ const loginUser = async (req, res) => {
   // console.log(req.body);
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res.status(409).json({
+      success: false,
+      message: "Please fill All Fields!",
+    });
+  }
+
   const user = await UserModel.findOne({ email });
   if (!user) {
     return res.status(400).json({
@@ -268,7 +268,7 @@ const loginUser = async (req, res) => {
   });
 
   res.status(200).json({
-    sucess: true,
+    success: true,
     message: "User Login Successfully",
     token: `Bearer ${token}`,
   });

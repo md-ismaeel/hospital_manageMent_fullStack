@@ -6,6 +6,7 @@ import { Login } from './Pages/Login/Login'
 import { Messages } from './Pages/Messages/Messages'
 import { NewAdmin } from './Pages/NewAdmin/NewAdmin'
 import { NewDoctors } from './Pages/NewDoctor/NewDoctors'
+import { Doctors } from './Pages/Doctors/Doctors'
 
 
 
@@ -36,6 +37,9 @@ function App() {
         {
           path: "/message",
           element: <Messages />
+        }, {
+          path: "doctors",
+          element: <Doctors />
         }
       ]
     }

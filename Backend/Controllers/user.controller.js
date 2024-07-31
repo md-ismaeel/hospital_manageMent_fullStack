@@ -182,7 +182,11 @@ const allDoctors = async (req, res) => {
       return res.status(404).json({ message: "No doctors found" });
     }
 
-    res.status(200).json({ doctors });
+    res.status(200).json({
+      success: true,
+      message: "Doctors fetched successfully!",
+      doctors
+    });
   } catch (error) {
     console.error("Error fetching doctors:", error);
     res.status(500).json({

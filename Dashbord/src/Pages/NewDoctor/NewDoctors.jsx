@@ -134,7 +134,7 @@ export const NewDoctors = () => {
                     />
                 ))}
 
-                <div className="w-[400px] flex flex-col justify-start items-center gap-2 border rounded-md px-2 py-1">
+                <div className="w-[400px] flex flex-col justify-start items-center gap-2 border rounded-md py-1">
                     <div className="h-[180px] w-[100%] rounded-md bg-white">
                         {docAvatarPreview ? (
                             <img

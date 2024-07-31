@@ -5,8 +5,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     isAuthenticated: false,
     admin: {},
-    doctor: [],
     appointment: [],
+    doctor: [],
     messages: []
 }
 
@@ -20,11 +20,11 @@ const UserSlice = createSlice({
         setAdmin: (state, actions) => {
             state.admin = actions.payload;
         },
-        setDoctor: (state, actions) => {
-            state.doctor = actions.payload;
-        },
         setAppointments: (state, actions) => {
             state.appointment = actions.payload;
+        },
+        setDoctor: (state, actions) => {
+            state.doctor = actions.payload;
         },
         setMessage: (state, actions) => {
             state.messages = actions.payload
@@ -32,7 +32,7 @@ const UserSlice = createSlice({
     }
 })
 
-export const { setIsAuthenticated, setAdmin, setAppointments, setMessage } = UserSlice.actions;
+export const { setIsAuthenticated, setAdmin, setAppointments, setMessage, setDoctor } = UserSlice.actions;
 export default UserSlice.reducer;
 
 

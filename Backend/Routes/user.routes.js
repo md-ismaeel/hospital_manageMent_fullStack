@@ -27,7 +27,7 @@ userRouter.post(
 userRouter.get(
     "/allDoctors",
     passport.authenticate("jwt", { session: false }),
-    Authorization(["ADMIN"]),
+    Authorization(["ADMIN", "DOCTOR", "PATIENT"]),
     allDoctors
 );
 

@@ -52,6 +52,7 @@ export const Navbar = () => {
                 <NavLink to={"/"} className={({ isActive }) => isActive ? "text-yellow-500" : ""}>Home</NavLink>
                 <NavLink to={"/appointment"} className={({ isActive }) => isActive ? "text-yellow-500" : ""}>Appointment</NavLink>
                 <NavLink to={"/about"} className={({ isActive }) => isActive ? "text-yellow-500" : ""}>About Us</NavLink>
+                <NavLink to="https://hospital-manage-dashboard.vercel.app/" target="_blank" rel="noopener noreferrer" className={({ isActive }) => isActive ? "text-yellow-500" : ""}>Admin</NavLink>
             </ul>
 
             {!isAuthenticated ? (

@@ -9,7 +9,7 @@ const createAppointment = async (req, res) => {
     console.log("create appointments");
     const { firstName, lastName, email, gender, phone, dob, userId, doctorId, address, appointmentDate, department, hasVisited } = req.body;
 
-    if (!firstName || !lastName || !email || !phone || !dob || !gender || !address || !appointmentDate || !department || hasVisited === undefined) {
+    if (!firstName || !lastName || !email || !phone || !dob || !gender || !address || !appointmentDate || !department || !userId || !doctorId || hasVisited === undefined) {
 
         return res.status(400).json({
             success: false,

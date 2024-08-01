@@ -34,11 +34,11 @@ const appointmentSchema = new mongoose.Schema(
             enum: ["M", "F", "T", "O"],
         },
         doctor: {
-            firstName: {
+            doctorFirstName: {
                 type: String,
                 required: [true, "FirstName Required!!"]
             },
-            lastName: {
+            doctorLastName: {
                 type: String,
                 required: [true, "LastName Required!!"]
             }

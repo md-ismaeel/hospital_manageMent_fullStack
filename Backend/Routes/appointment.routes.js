@@ -14,14 +14,14 @@ appointmentRoutes.post(
     createAppointment
 );
 
-appointmentRoutes.post(
+appointmentRoutes.get(
     "/allAppointments",
     passport.authenticate("jwt", { session: false }),
     Authorization(["ADMIN", "DOCTOR"]),
     getAllAppointments
 );
 
-appointmentRoutes.post(
+appointmentRoutes.put(
     "/edit/:id",
     passport.authenticate("jwt", { session: false }),
     Authorization(["ADMIN", "DOCTOR", "PATIENT"]),

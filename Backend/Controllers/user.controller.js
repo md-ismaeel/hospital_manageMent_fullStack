@@ -60,37 +60,19 @@ const addNewDoctor = async (req, res) => {
   // console.log(req.body);
   // console.log("something");
   try {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      phone,
-      dob,
-      gender,
-      docDepartment,
-    } = req.body;
+    const { firstName, lastName, email, password, phone, dob, gender, docDepartment } = req.body;
+
+    if (!firstName || !lastName || !email || !password || !phone || !dob || !gender || !docDepartment) {
+      return res.status(409).json({
+        success: false,
+        message: "Please fill All Fields!",
+      });
+    }
 
     if (!req.file) {
       return res.status(400).json({
         success: false,
         message: "Upload image for the avatar",
-      });
-    }
-
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !phone ||
-      !dob ||
-      !gender ||
-      !docDepartment
-    ) {
-      return res.status(409).json({
-        success: false,
-        message: "Please fill All Fields!",
       });
     }
 

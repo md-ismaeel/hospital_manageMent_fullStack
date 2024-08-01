@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     user: {},
-    isAuthenticated: false
+    isAuthenticated: false,
+    doctors: [],
 }
 
 const userSlice = createSlice({
@@ -15,9 +16,12 @@ const userSlice = createSlice({
         },
         setIsAuthenticated: (state, actions) => {
             state.isAuthenticated = actions.payload
+        },
+        setDoctors: (state, actions) => {
+            state.doctors = actions.payload
         }
     }
 })
 
-export const { setUser, setIsAuthenticated } = userSlice.actions;
+export const { setUser, setIsAuthenticated, setDoctors } = userSlice.actions;
 export default userSlice.reducer;

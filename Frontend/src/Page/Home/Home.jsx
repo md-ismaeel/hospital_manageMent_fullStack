@@ -10,33 +10,33 @@ import imageOfBiography from "../../assets/about.png"
 import { setUser } from "../../Redux/Slice/userSlice";
 import { useEffect } from "react";
 import { API_USER_BACKEND, requestOptions } from "../../Utils/utils";
+import axios from "axios";
 
 export const Home = () => {
     const { user, isAuthenticated } = useSelector((state) => state.userSlice);
     const dispatch = useDispatch()
-    // console.log(user);
 
-    // const fetchProfile = async () => {
-    //     try {
-    //         const response = await axios.get(`${API_USER_BACKEND}/profile`, requestOptions);
-    //         // console.log("profile", response.data);
-    //         if (response.data.success) {
-    //             dispatch(setUser(response.data.userData))
-    //         }
-    //     } catch (err) {
-    //         console.error(err.response?.data?.message || "Error profile not found!!");
-    //     }
-    // };
+    const fetchProfile = async () => {
+        try {
+            const response = await axios.get(`${API_USER_BACKEND}/profile`, requestOptions);
+            // console.log("profile", response);
+            if (response.data.success) {
+                dispatch(setUser(response.data.userData))
+            }
+        } catch (err) {
+            console.error(err.response?.data?.message || "Error profile not found!!");
+        }
+    };
 
-    // useEffect(() => {
-    //     if (isAuthenticated) {
-    //         fetchProfile();
-    //     } else {
-    //         dispatch(setUser({}))
-    //     }
+    useEffect(() => {
+        if (isAuthenticated) {
+            fetchProfile();
+        } else {
+            dispatch(setUser({}))
+        }
 
-    //     return () => dispatch(setUser({}));
-    // }, [isAuthenticated, dispatch]);
+        // return () => dispatch(setUser({}));
+    }, [isAuthenticated, dispatch]);
 
 
     return (

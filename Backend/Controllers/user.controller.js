@@ -59,66 +59,70 @@ const addNewAdmin = async (req, res) => {
 const addNewDoctor = async (req, res) => {
   // console.log(req.body);
   // console.log("something");
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    phone,
-    dob,
-    gender,
-    docDepartment,
-  } = req.body;
+  try {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      phone,
+      dob,
+      gender,
+      docDepartment,
+    } = req.body;
 
-  if (!req.file) {
-    return res.status(400).json({
-      success: false,
-      message: "Upload image for the avatar",
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Upload image for the avatar",
+      });
+    }
+
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !phone ||
+      !dob ||
+      !gender ||
+      !docDepartment
+    ) {
+      return res.status(409).json({
+        success: false,
+        message: "Please fill All Fields!",
+      });
+    }
+
+    const isUser = await UserModel.findOne({ email });
+    if (isUser) {
+      return res.json({
+        success: false,
+        message: "user already registered",
+      });
+    }
+
+    const result = await uploadFile(req);
+    // console.log(result);
+
+    const salt = bcrypt.genSaltSync(10);
+    const hasPassword = bcrypt.hashSync(password, salt);
+
+    const doctorUser = await UserModel.create({
+      ...req.body,
+      password: hasPassword,
+      role: "DOCTOR",
+      docAvatar: result.secure_url,
     });
-  }
 
-  if (
-    !firstName ||
-    !lastName ||
-    !email ||
-    !password ||
-    !phone ||
-    !dob ||
-    !gender ||
-    !docDepartment
-  ) {
-    return res.status(409).json({
-      success: false,
-      message: "Please fill All Fields!",
+    res.status(201).json({
+      success: true,
+      message: "doctor created signUp successfully",
+      results: doctorUser._id,
     });
+  } catch (err) {
+    console.log("Error occurred while doctor registering", err);
   }
-
-  const isUser = await UserModel.findOne({ email });
-  if (isUser) {
-    return res.json({
-      success: false,
-      message: "user already registered",
-    });
-  }
-
-  const result = await uploadFile(req);
-  // console.log(result);
-
-  const salt = bcrypt.genSaltSync(10);
-  const hasPassword = bcrypt.hashSync(password, salt);
-
-  const doctorUser = await UserModel.create({
-    ...req.body,
-    password: hasPassword,
-    role: "DOCTOR",
-    docAvatar: result.secure_url,
-  });
-
-  res.status(201).json({
-    success: true,
-    message: "doctor created signUp successfully",
-    results: doctorUser._id,
-  });
 };
 
 /* add new patient */
@@ -227,7 +231,7 @@ const loginUser = async (req, res) => {
   if (!email || !password) {
     return res.status(409).json({
       success: false,
-      message: "Please fill All Fields!",
+      message: "Please fill Email and Password!",
     });
   }
 
@@ -295,7 +299,7 @@ const logoutUser = async (req, res) => {
 
 const userController = {
   addNewAdmin: catchAsyncFun(addNewAdmin),
-  addNewDoctor: catchAsyncFun(addNewDoctor),
+  addNewDoctor,
   addNewPatient: catchAsyncFun(addNewPatient),
   getProfile: catchAsyncFun(getProfile),
   loginUser: catchAsyncFun(loginUser),

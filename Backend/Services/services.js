@@ -24,14 +24,24 @@ const streamUpload = (req) => {
                 reject(error);
             }
         });
-        streamifier.createReadStream(req.file.buffer).pipe(stream);
+
+        if (req.file && req.file.buffer) {
+            streamifier.createReadStream(req.file.buffer).pipe(stream);
+        } else {
+            reject(new Error("No file buffer found in the request"));
+        }
     });
 };
 
 const uploadFile = async (req) => {
-    let result = await streamUpload(req);
-    return result;
-};
+    try {
+        const result = await streamUpload(req);
+        return result;
+    } catch (error) {
+        console.error("Error uploading file:", error);
+        throw error;
+    }
+}
 
 module.exports = {
     upload,

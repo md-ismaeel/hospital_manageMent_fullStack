@@ -20,7 +20,7 @@ userRouter.post(
     "/register/doctor",
     passport.authenticate("jwt", { session: false }),
     Authorization(["ADMIN"]),
-    upload.single("file"),
+    upload.single("docAvatar"),
     addNewDoctor
 );
 

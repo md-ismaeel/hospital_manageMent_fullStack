@@ -13,7 +13,7 @@ const catchAsyncFun = (fn) => {
 };
 
 const errorHandler = async (err, req, res, next) => {
-    console.log("common error handler");
+    console.log("common error handler", err);
 
     res.json({
         success: false,

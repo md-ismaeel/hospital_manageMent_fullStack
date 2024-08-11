@@ -3,7 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
-import logo from "./../../assets/logo/med-logo.png";
+// import logo from "./../../assets/logo/med-logo.png";
+import logo from "./../../assets/logo/health-center.png";
 import { API_USER_BACKEND } from "../../Utils/utils";
 import { setIsAuthenticated, setUser } from "../../Redux/Slice/userSlice";
 import { TailSpinLoader } from "../Loader/Loader";
@@ -46,7 +47,7 @@ export const Navbar = () => {
                 <img
                     src={logo}
                     alt="logo"
-                    className="w-[70px] h-[70px]"
+                    className="w-[70px] h-[50px]"
                 />
             </span>
 

@@ -23,11 +23,6 @@ export const Layout = () => {
                     <Outlet />
                 </section>
             }
-
-            {/* <section className='bg-blue-600 h-screen flex justify-center items-center'>
-                <Sidebar />
-                <Outlet />
-            </section> */}
         </>
     )
 }

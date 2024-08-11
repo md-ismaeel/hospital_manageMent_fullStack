@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 
 export const AppointmentDetails = () => {
   const { isAuthenticated, appointments } = useSelector((state) => state.UserSlice);
-  console.log("appointments", appointments);
+  // console.log("appointments", appointments);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -54,9 +54,13 @@ export const AppointmentDetails = () => {
 
   const formatDate = (dateStr) => {
     try {
-      if (!dateStr) return 'Invalid Date';
+      if (!dateStr) {
+        return 'Invalid Date';
+      }
       const date = new Date(dateStr);
-      if (isNaN(date.getTime())) return 'Invalid Date';
+      if (isNaN(date.getTime())) {
+        return 'Invalid Date';
+      }
       return format(date, 'yyyy-MM-dd HH:mm');
     } catch (error) {
       console.error("Error formatting date:", error);
@@ -101,15 +105,9 @@ export const AppointmentDetails = () => {
                           handleUpdateStatus(appointment._id, e.target.value)
                         }
                       >
-                        <option value="Pending" className="bg-yellow-200 text-yellow-800">
-                          Pending
-                        </option>
-                        <option value="Accepted" className="bg-green-200 text-green-800">
-                          Accepted
-                        </option>
-                        <option value="Rejected" className="bg-red-200 text-red-800">
-                          Rejected
-                        </option>
+                        <option value="Pending" className="bg-yellow-200 text-yellow-800">Pending</option>
+                        <option value="Accepted" className="bg-green-200 text-green-800">Accepted</option>
+                        <option value="Rejected" className="bg-red-200 text-red-800">Rejected</option>
                       </select>
                     </td>
                     <td className="px-4 py-2 text-center">

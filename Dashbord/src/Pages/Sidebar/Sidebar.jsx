@@ -10,7 +10,7 @@ import { FaUserPlus } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
 import { MdOutlineLogout } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsAuthenticated } from '../../Redux/Slice/userSlice';
+import { setAdmin, setIsAuthenticated } from '../../Redux/Slice/userSlice';
 
 
 export const Sidebar = () => {
@@ -29,6 +29,8 @@ export const Sidebar = () => {
             })
             toast.success(response?.data?.message)
             dispatch(setIsAuthenticated(false))
+            dispatch(setAdmin({}))
+            localStorage.clear()
             navigate("/login")
         } catch (err) {
             console.log("Error occurred", err);

@@ -8,11 +8,11 @@ import { API_USER_BACKEND, requestOptions } from "../../Utils/utils";
 import { toast } from "react-toastify";
 
 export const Home = () => {
-    const { admin, isAuthenticated, messages } = useSelector((state) => state.UserSlice);
+    const { admin, appointments, doctor } = useSelector((state) => state.UserSlice);
     const dispatch = useDispatch()
 
-    const messageCount = messages.reduce((total, message) =>
-        total + (message.item?.length || 0), 0);
+    const doctorsLength = doctor?.length;
+    const appointmentLength = appointments?.length;
 
     const fetchProfile = async () => {
         try {
@@ -26,13 +26,14 @@ export const Home = () => {
 
     useEffect(() => {
         fetchProfile();
+    }, [dispatch]);
 
-        return () => dispatch(setAdmin({}));
-    }, []);
+
 
     return (
-        <section className="min-h-screen w-full flex flex-col justify-center items-start gap-6 bg-slate-100 rounded-l-3xl px-10">
-            <div className="w-full flex justify-between items-center gap-5">
+        <section className="h-screen w-full flex flex-col justify-center items-start gap-6 bg-slate-100 rounded-l-3xl px-10 overflow-hidden">
+
+            <div className="w-full flex justify-between items-center gap-5 mt-2">
                 <div className="h-[200px] w-[55%] flex bg-blue-200 rounded-md">
                     <div className="w-[33%]">
                         <img
@@ -61,18 +62,24 @@ export const Home = () => {
                         <h1 className="text-lg font-semibold text-white">
                             Total Appointments
                         </h1>
-                        <h1 className="text-2xl font-semibold text-white">{messageCount}</h1>
+                        <h1 className="text-xl font-semibold text-white">
+                            {appointmentLength ? appointmentLength : "Not Loaded"}
+                            {/* "Not Found" */}
+                        </h1>
                     </div>
                     <div className="w-[49%] h-[100%] bg-slate-200 rounded-md flex flex-col justify-center items-center gap-2">
                         <h1 className="text-lg font-semibold text-teal-500">
                             Registered Doctors
                         </h1>
-                        <h1 className="text-2xl font-semibold text-teal-500">{"100"}</h1>
+                        <h1 className="text-xl font-semibold text-teal-500">
+                            {doctorsLength ? doctorsLength : "Not Loaded"}
+                            {/* "Not Found" */}
+                        </h1>
                     </div>
                 </div>
             </div>
 
-            {/* <AppointmentDetails /> */}
+            <AppointmentDetails />
         </section>
     );
 };

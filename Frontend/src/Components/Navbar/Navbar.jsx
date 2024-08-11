@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "./../../assets/logo/med-logo.png";
 import { API_USER_BACKEND } from "../../Utils/utils";
-import { setIsAuthenticated } from "../../Redux/Slice/userSlice";
+import { setIsAuthenticated, setUser } from "../../Redux/Slice/userSlice";
 import { TailSpinLoader } from "../Loader/Loader";
 
 export const Navbar = () => {
@@ -22,6 +22,8 @@ export const Navbar = () => {
                 withCredentials: true
             });
             dispatch(setIsAuthenticated(false));
+            dispatch(setUser({}))
+            localStorage.clear()
             toast.success(response.data.message);
             navigate("/")
 

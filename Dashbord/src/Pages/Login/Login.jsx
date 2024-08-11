@@ -51,8 +51,8 @@ export const Login = () => {
     }, [isAuthenticated, navigate]);
 
     return (
-        <section className="w-full min-h-screen flex flex-col justify-center items-center">
-            <div className="text-2xl font-semibold">Welcome to HealthCare Center</div>
+        <section className="w-full h-auto flex flex-col justify-center items-center">
+            <div className="text-2xl font-semibold mt-10">Welcome to HealthCare Center</div>
             <form
                 onSubmit={handleForm}
                 className="w-[450px] min-h-[100px] flex flex-col justify-center items-center gap-4 border-2  py-4 rounded-3xl mt-4"

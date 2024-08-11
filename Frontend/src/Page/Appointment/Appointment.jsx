@@ -191,8 +191,7 @@ export const Appointment = () => {
             }}
           >
             <option value="">Select a doctor</option>
-            {doctors
-              .filter((doctor) => doctor.docDepartment === department)
+            {doctors && doctors.filter((doctor) => doctor.docDepartment === department)
               .map((doc) => (
                 <option
                   key={doc._id}

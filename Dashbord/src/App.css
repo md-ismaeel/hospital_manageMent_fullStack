@@ -28,10 +28,9 @@ body {
   font-style: normal;
 }
 
-.message-item::-webkit-scrollbar {
-  display: none;
-}
-
-.newAdmin::-webkit-scrollbar {
+.message-item::-webkit-scrollbar,
+.doc-ul::-webkit-scrollbar,
+.newAdmin::-webkit-scrollbar,
+.message-list::-webkit-scrollbar {
   display: none;
 }

@@ -40,12 +40,12 @@ export const Messages = () => {
     }
 
     return (
-        <section className="messages-container w-full min-h-screen rounded-l-3xl bg-slate-100 p-4">
-
+        <section className="messages-container w-full h-screen overflow-hidden rounded-l-3xl bg-slate-100 px-5">
+            <h1 className="tex-3xl font-semibold mb-2 mt-4">Messages List</h1>
             {messages && messages.length > 0 ? (
-                <ul className="message-list w-full flex flex-wrap justify-start items-start gap-4 overflow-y-auto">
+                <ul className="message-list w-full h-screen flex flex-wrap justify-start items-center gap-2 px-4 py-2 overflow-y-auto">
                     {messages.map((item) => (
-                        <li key={item._id} className="message-item w-[280px] h-[200px] bg-slate-300 rounded-lg shadow-md px-4 py-3 overflow-scroll">
+                        <li key={item._id} className="message-item w-[280px] h-[200px] bg-white border-2 rounded-lg px-4 py-3 overflow-scroll">
                             <h3 className="text-md">Name:- <span className="font-semibold ml-1 text-gray-600">{`${item.firstName} ${item.lastName}`}</span></h3>
                             <p className="mt-1">Email:- <span className="text-gray-600">{item.email}</span></p>
                             <p className="mt-1">Phone:- <span className="text-gray-600">{item.phone}</span></p>

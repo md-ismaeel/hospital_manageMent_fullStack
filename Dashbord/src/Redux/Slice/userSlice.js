@@ -5,7 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     isAuthenticated: false,
     admin: {},
-    appointment: [],
+    appointments: [],
     doctor: [],
     messages: []
 }
@@ -21,7 +21,7 @@ const UserSlice = createSlice({
             state.admin = actions.payload;
         },
         setAppointments: (state, actions) => {
-            state.appointment = actions.payload;
+            state.appointments = actions.payload || [];
         },
         setDoctor: (state, actions) => {
             state.doctor = actions.payload;

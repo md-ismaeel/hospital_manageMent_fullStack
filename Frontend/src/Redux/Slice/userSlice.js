@@ -18,7 +18,7 @@ const userSlice = createSlice({
             state.isAuthenticated = actions.payload
         },
         setDoctors: (state, actions) => {
-            state.doctors = actions.payload
+            state.doctors = actions.payload || []
         }
     }
 })

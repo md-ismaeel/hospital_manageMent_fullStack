@@ -1,18 +1,18 @@
 @media screen and (max-width:320px) {
     .form {
-        width: 300px !important;
+        width: 250px !important;
     }
 }
 
 @media screen and (min-width:321px) and (max-width:376px) {
     .form {
-        width: 340px !important;
+        width: 300px !important;
     }
 }
 
 
 @media screen and (min-width:377px) and (max-width:427px) {
     .form {
-        width: 400px !important;
+        width: 345px !important;
     }
 }

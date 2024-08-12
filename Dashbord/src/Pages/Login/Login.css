@@ -1,11 +1,11 @@
 @media screen and (max-width:320px) {
     .login-form {
-        width: 315px !important;
+        width: 300px !important;
         /* padding: 0 1rem !important; */
     }
 
     .btn-login {
-        width: 300px !important;
+        width: 230px !important;
     }
 
     .loader-login {
@@ -19,12 +19,12 @@
 
 @media screen and (min-width:321px) and (max-width:376px) {
     .login-form {
-        width: 365px !important;
+        width: 350px !important;
         /* padding: 0 1rem !important; */
     }
 
     .btn-login {
-        width: 340px !important;
+        width: 280px !important;
     }
 
     .loader-login {
@@ -39,12 +39,12 @@
 
 @media screen and (min-width:377px) and (max-width:427px) {
     .login-form {
-        width: 420px !important;
+        width: 400px !important;
         /* padding: 0 1rem !important; */
     }
 
     .btn-login {
-        width: 400px !important;
+        width: 310px !important;
     }
 
     .loader-login {

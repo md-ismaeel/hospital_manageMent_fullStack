@@ -128,7 +128,7 @@ export const NewDoctors = () => {
         <section className="newAdmin w-full h-full flex flex-col justify-start items-center bg-slate-100 rounded-l-3xl px-10 overflow-y-scroll">
             <form
                 onSubmit={handleSubmit}
-                className="relative w-[500px] flex flex-col justify-center items-center gap-2 py-4 border-2 rounded-3xl mt-6 mb-10"
+                className="admin-form relative w-[500px] flex flex-col justify-center items-center gap-2 py-4 border-2 rounded-3xl mt-6 mb-10"
             >
                 <div className="flex flex-col justify-center items-center mt-2 mb-6">
                     <h1>
@@ -150,7 +150,7 @@ export const NewDoctors = () => {
                     />
                 ))}
 
-                <div className="w-[400px] flex flex-col justify-start items-center gap-2 border rounded-md py-1">
+                <div className="img-doc w-[400px] flex flex-col justify-start items-center gap-2 border rounded-md py-1">
                     <div className="h-[180px] w-[100%] rounded-md bg-white">
                         {docAvatarPreview ? (
                             <img
@@ -167,16 +167,16 @@ export const NewDoctors = () => {
                         )}
                     </div>
 
-                    <input type="file" className="text-sm" onChange={handleAvatar} />
+                    <input type="file" className="file-imp text-sm" onChange={handleAvatar} />
                 </div>
 
                 <button
                     type="submit"
-                    className="relative w-[400px] mt-4 flex justify-center items-center gap-2 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
+                    className="admin-btn relative w-[400px] mt-4 flex justify-center items-center gap-2 text-md text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
                     disabled={loading}
                 >
                     <span> Register</span>
-                    <span className="absolute right-[30%]">
+                    <span className="ad-loader absolute right-[30%]">
                         {loading && <DnaLoader />}
                     </span>
                 </button>

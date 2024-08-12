@@ -8,6 +8,7 @@ import { API_USER_BACKEND, requestOptions } from "../../Utils/utils";
 import { toast } from "react-toastify";
 import { DnaLoader } from "../../Components/Loader/Loader";
 import { PiUserCircleFill } from "react-icons/pi";
+import "./Login.css"
 
 
 export const Login = () => {
@@ -51,11 +52,11 @@ export const Login = () => {
     }, [isAuthenticated, navigate]);
 
     return (
-        <section className="w-full h-auto flex flex-col justify-center items-center">
-            <div className="text-2xl font-semibold mt-10">Welcome to HealthCare Center</div>
+        <section className="w-full h-auto flex flex-col justify-center items-center mt-1 mb-10">
+            <div className="d-title text-2xl font-semibold mt-10">Welcome to HealthCare Center</div>
             <form
                 onSubmit={handleForm}
-                className="w-[450px] min-h-[100px] flex flex-col justify-center items-center gap-4 border-2  py-4 rounded-3xl mt-4"
+                className="login-form w-[450px] min-h-[100px] flex flex-col justify-center items-center gap-4 border-2  py-4 rounded-3xl mt-4"
             >
                 <div className="flex flex-col justify-center items-center mt-2 mb-2">
                     <h1 ><PiUserCircleFill className="text-7xl text-slate-600" /></h1>
@@ -78,11 +79,11 @@ export const Login = () => {
 
                 <button
                     type="submit"
-                    className="relative w-[400px] mt-4 text-md flex justify-center items-center gap-2 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2 cursor-pointer"
+                    className="btn-login relative w-[400px] mt-4 text-md flex justify-center items-center gap-2 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2 cursor-pointer"
                     disabled={loading}
                 >
                     <span className="">Login</span>
-                    <span className="absolute right-[35%]">{loading && <DnaLoader />}</span>
+                    <span className="loader-login absolute right-[35%]">{loading && <DnaLoader />}</span>
                 </button>
 
                 <p className="mb-1">

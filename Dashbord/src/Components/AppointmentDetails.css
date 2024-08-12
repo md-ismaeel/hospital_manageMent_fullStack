@@ -1,0 +1,20 @@
+@media screen and (max-width:320px) {
+
+    .ap-detail {
+        width: 240px !important;
+    }
+
+}
+
+@media screen and (min-width:321px) and (max-width:376px) {
+    .ap-detail {
+        width: 270px !important;
+    }
+}
+
+
+@media screen and (min-width:377px) and (max-width:427px) {
+    .ap-detail {
+        width: 340px !important;
+    }
+}

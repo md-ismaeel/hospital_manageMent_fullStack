@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/logo/health-center.png";
+import logo from "../assets/logo/health-center.png";
 import {
   FaInstagram,
   FaLinkedin,

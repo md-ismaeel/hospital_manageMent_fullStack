@@ -1,0 +1,17 @@
+@media screen and (max-width:320px) {
+    .container-biography {
+        flex-direction: column !important;
+    }
+}
+
+@media screen and (min-width:321px) and (max-width:376px) {
+    .container-biography {
+        flex-direction: column !important;
+    }
+}
+
+@media screen and (min-width:377px) and (max-width:427px) {
+    .container-biography {
+        flex-direction: column !important;
+    }
+}

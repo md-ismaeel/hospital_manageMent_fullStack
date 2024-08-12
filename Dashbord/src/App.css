@@ -31,6 +31,37 @@ body {
 .message-item::-webkit-scrollbar,
 .doc-ul::-webkit-scrollbar,
 .newAdmin::-webkit-scrollbar,
-.message-list::-webkit-scrollbar {
+.message-list::-webkit-scrollbar,
+.home-container::-webkit-scrollbar {
   display: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b20202;
+}
+
+
+.table-parent::-webkit-scrollbar {
+  width: 4px;
+}
+
+.table-parent::-webkit-scrollbar:horizontal {
+  height: 5px;
+  /* Height of the horizontal scrollbar */
 }

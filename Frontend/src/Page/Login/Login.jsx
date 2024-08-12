@@ -8,8 +8,7 @@ import { API_USER_BACKEND, requestOptions } from "../../Utils/utils";
 import { toast } from "react-toastify";
 import { DnaLoader } from "../../Components/Loader/Loader";
 import { PiUserCircleFill } from "react-icons/pi";
-
-
+import "./Login.css"
 
 export const Login = () => {
     const { isAuthenticated } = useSelector((state) => state.userSlice);
@@ -25,27 +24,6 @@ export const Login = () => {
         setPassword("");
     };
 
-    // const handleForm = async (e) => {
-    //     e.preventDefault();
-    //     setLoading(true);
-
-    //     const userFormData = { email, password };
-
-    //     try {
-    //         const response = await axios.post(`${API_USER_BACKEND}/login`, userFormData, requestOptions);
-    //         console.log(response);
-    //         if (response.data.success) {
-    //             toast.success(response?.data?.message);
-    //             dispatch(setAuthenticated(true));
-    //             navigate("/");
-    //             resetForm();
-    //         }
-    //     } catch (err) {
-    //         toast.error(err.response?.data?.message || "Error occurred while logging in");
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
 
     const handleForm = async (e) => {
         e.preventDefault();
@@ -54,7 +32,11 @@ export const Login = () => {
         const userFormData = { email, password };
 
         try {
-            const response = await axios.post(`${API_USER_BACKEND}/login`, userFormData, requestOptions);
+            const response = await axios.post(
+                `${API_USER_BACKEND}/login`,
+                userFormData,
+                requestOptions
+            );
 
             if (response.data.success) {
                 toast.success(response.data.message || "Login successful");
@@ -88,14 +70,15 @@ export const Login = () => {
 
     return (
         <>
-            <section className="w-full min-h-screen flex flex-col justify-center items-center">
-                {/* <div className="text-2xl font-semibold mt-6">Welcome to HealthCare Center</div> */}
+            <section className="w-full h-auto flex flex-col justify-center items-center">
                 <form
                     onSubmit={handleForm}
-                    className="w-[450px] min-h-[300px] flex flex-col justify-center items-center gap-4 border-2  py-4 rounded-3xl mt-10"
+                    className="login-form w-[450px] min-h-[300px] flex flex-col justify-center items-center gap-4 border-2  py-4 rounded-3xl mt-20 mb-16"
                 >
                     <div className="flex flex-col justify-center items-center mt-2 mb-2">
-                        <h1 ><PiUserCircleFill className="text-7xl text-slate-600" /></h1>
+                        <h1>
+                            <PiUserCircleFill className="text-7xl text-slate-600" />
+                        </h1>
                         <h1 className="text-2xl font-semibold text-slate-500">Login</h1>
                     </div>
 
@@ -116,11 +99,13 @@ export const Login = () => {
 
                     <button
                         type="submit"
-                        className="relative w-[400px] mt-4 text-md flex justify-center items-center gap-2 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
+                        className="btn-login relative w-[400px] mt-4 text-md flex justify-center items-center gap-2 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-300 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2"
                         disabled={loading}
                     >
                         <span className="">Login</span>
-                        <span className="absolute right-[35%]">{loading && <DnaLoader />}</span>
+                        <span className="loader-login absolute right-[35%]">
+                            {loading && <DnaLoader />}
+                        </span>
                     </button>
 
                     <p className="mb-4">

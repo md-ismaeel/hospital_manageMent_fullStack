@@ -13,12 +13,11 @@ import signin from "../../assets/signin.png";
 import imageOfVector from "../../assets/Vector.png";
 
 export const Appointment = () => {
-  // Extract necessary state from Redux
+
   const { user, isAuthenticated, doctors } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Local component state
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -168,7 +167,7 @@ export const Appointment = () => {
 
         <form
           onSubmit={bookAppointment}
-          className="w-11/12 h-auto flex flex-wrap justify-center items-center gap-5 mt-6 border py-10 rounded-xl"
+          className="w-11/12 h-auto flex flex-wrap justify-center items-center gap-5 mt-6 border py-10 rounded-xl px-5"
         >
           {formData.map((item, index) => (
             <InputForm

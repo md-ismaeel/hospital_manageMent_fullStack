@@ -56,7 +56,7 @@ export const Message = () => {
 
                 <form
                     onSubmit={handleSubmit}
-                    className="w-11/12 min-h-[200px] flex flex-wrap justify-center items-center bg-white border rounded-xl gap-4 py-10 mb-10"
+                    className="w-11/12 min-h-[200px] flex flex-wrap justify-center items-center bg-white border rounded-xl gap-4 py-10 px-4 mb-10"
                 >
                     {formData.map((item, index) => (
                         <InputForm

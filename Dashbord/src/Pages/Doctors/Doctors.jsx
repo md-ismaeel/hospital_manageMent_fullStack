@@ -44,7 +44,7 @@ export const Doctors = () => {
     return (
         <section className="w-full h-screen overflow-hidden flex flex-col justify-start items-start rounded-l-3xl bg-slate-100 px-5">
             <h1 className="text-2xl font-bold mb-2 mt-4">Doctors List</h1>
-            <ul className="doc-ul w-full h-screen flex flex-wrap justify-start items-center gap-7 overflow-y-auto mb-5 ">
+            <ul className="doc-ul w-full h-screen flex flex-wrap justify-center items-center gap-7 overflow-y-auto mb-5 ">
                 {doctor && doctor.length > 0 ? (
                     doctor.map((doc) => (
                         <li key={doc._id} className=" w-[270px] h-auto flex flex-col justify-center items-start border-2 border-gray-300 px-4 py-6 gap-1 rounded-xl bg-white">

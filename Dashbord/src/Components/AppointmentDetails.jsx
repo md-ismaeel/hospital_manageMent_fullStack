@@ -8,6 +8,7 @@ import { API_USER_BACKEND, requestOptions } from "../Utils/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { setAppointments } from "../Redux/Slice/userSlice";
 import { format } from 'date-fns';
+import "./AppointmentDetails.css"
 
 export const AppointmentDetails = () => {
   const { isAuthenticated, appointments } = useSelector((state) => state.UserSlice);
@@ -69,13 +70,13 @@ export const AppointmentDetails = () => {
   };
 
   return (
-    <section className="w-full bg-gray-100">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <section className="ap-detail w-full bg-gray-100 mb-10">
+      <div className="table-container bg-white rounded-lg shadow-md overflow-hidden">
         <h5 className="text-2xl font-bold p-4 border-b">Appointments</h5>
-        <div className="overflow-auto h-[280px]">
+        <div className="table-parent overflow-auto h-[280px] ">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-200">
+              <tr className="bg-gray-200 heading-tr">
                 <th className="px-4 py-2 text-left">Patient</th>
                 <th className="px-4 py-2 text-left">Date</th>
                 <th className="px-4 py-2 text-left">Doctor</th>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import "./InputForm.css"
 
 export const InputForm = ({ value, placeHolder, type, onChange, options }) => {
   const [isDateFocused, setIsDateFocused] = useState(false);
 
   return (
     <>
-      <section className="w-[400px] h-[50px]">
+      <section className="form w-[400px] h-[50px]">
         {type === "select" ? (
           <select
             className="w-[100%] h-[100%] px-6 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"

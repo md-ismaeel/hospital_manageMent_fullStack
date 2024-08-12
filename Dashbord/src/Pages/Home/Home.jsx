@@ -6,6 +6,8 @@ import { setAdmin } from "../../Redux/Slice/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { API_USER_BACKEND, requestOptions } from "../../Utils/utils";
 import { toast } from "react-toastify";
+import "./Home.css"
+
 
 export const Home = () => {
     const { admin, appointments, doctor } = useSelector((state) => state.UserSlice);
@@ -31,11 +33,12 @@ export const Home = () => {
 
 
     return (
-        <section className="h-screen w-full flex flex-col justify-center items-start gap-6 bg-slate-100 rounded-l-3xl px-10 overflow-hidden">
+        <section className="home-container h-screen w-full flex flex-col justify-center items-start gap-6 bg-slate-100 rounded-l-3xl px-10 overflow-y-auto">
 
-            <div className="w-full flex justify-between items-center gap-5 mt-2">
-                <div className="h-[200px] w-[55%] flex bg-blue-200 rounded-md">
-                    <div className="w-[33%]">
+            <div className="home-container w-full flex justify-between items-center gap-5 mt-10">
+                <div className="admin-profile min-h-[200px] w-[55%] flex bg-blue-200 rounded-md">
+
+                    <div className="adminImage w-[33%]">
                         <img
                             src={adminImage}
                             alt={admin?.firstName}
@@ -43,8 +46,8 @@ export const Home = () => {
                         />
                     </div>
 
-                    <div className="w-[65%] flex flex-col justify-center">
-                        <h1 className="text-2xl font-semibold mb-2">
+                    <div className="admin-text w-[65%] flex flex-col justify-center">
+                        <h1 className="text-xl font-semibold mb-2">
                             Hello,
                             <span className="text-orange-500 ml-4">{`${admin?.firstName || "user"
                                 } ${admin?.lastName || "name"}`}</span>
@@ -55,10 +58,12 @@ export const Home = () => {
                             repellendus necessitatibus itaque.
                         </p>
                     </div>
+
                 </div>
 
-                <div className="h-[200px] w-[45%] flex justify-between items-center">
-                    <div className="w-[49%] h-[100%] bg-blue-400 rounded-md flex flex-col justify-center items-center gap-2">
+                <div className="ap-doc h-[200px] w-[45%] flex justify-between items-center">
+
+                    <div className="ap w-[49%] h-[100%] bg-blue-400 rounded-md flex flex-col justify-center items-center gap-2">
                         <h1 className="text-lg font-semibold text-white">
                             Total Appointments
                         </h1>
@@ -67,7 +72,8 @@ export const Home = () => {
                             {/* "Not Found" */}
                         </h1>
                     </div>
-                    <div className="w-[49%] h-[100%] bg-slate-200 rounded-md flex flex-col justify-center items-center gap-2">
+
+                    <div className="doc w-[49%] h-[100%] bg-slate-200 rounded-md flex flex-col justify-center items-center gap-2">
                         <h1 className="text-lg font-semibold text-teal-500">
                             Registered Doctors
                         </h1>
@@ -76,10 +82,13 @@ export const Home = () => {
                             {/* "Not Found" */}
                         </h1>
                     </div>
+
                 </div>
             </div>
 
-            <AppointmentDetails />
+            <div className="w-full flex justify-center items-center">
+                <AppointmentDetails />
+            </div>
         </section>
     );
 };

@@ -41,12 +41,14 @@
 ## Tech Stack
 
 ### Frontend
+
 - **React.js:** For building the user interface.
 - **Redux:** State management for complex application state.
 - **Tailwind CSS:** For styling and responsive design.
 - **React Router:** For handling navigation between different pages.
 
 ### Backend
+
 - **Node.js:** Server-side runtime environment.
 - **Express.js:** Web framework for building the RESTful API.
 - **MongoDB:** NoSQL database for storing application data.
@@ -72,7 +74,8 @@
    ```
 
 2. **Install dependencies and start the application::**
-    ```bash
+
+   ```bash
    npm install
    npm run dev
 

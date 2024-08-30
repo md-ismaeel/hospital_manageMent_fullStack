@@ -18,6 +18,12 @@ export const Navbar = () => {
     const [showMenu, setShowMenu] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/");
+        }
+    }, [isAuthenticated, navigate]);
+
     const handleLogout = async () => {
         setIsLoading(true);
         try {
@@ -36,13 +42,20 @@ export const Navbar = () => {
         }
     };
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate("/");
-        }
-    }, [isAuthenticated, navigate]);
-
     const getActiveClass = ({ isActive }) => (isActive ? "text-yellow-500" : "");
+
+    const handleMenuToggle = () => setShowMenu(!showMenu);
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Escape' && showMenu) setShowMenu(false);
+    };
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [showMenu]);
 
     return (
         <div className="main-container w-full h-[60px] fixed flex justify-between items-center px-10 bg-slate-50 z-50 font-medium border-b">
@@ -84,26 +97,34 @@ export const Navbar = () => {
             </div>
 
             {/* Small screen menu */}
-            <div className="small-screen">
-                <button
-                    className="icon relative text-2xl"
-                    onClick={() => setShowMenu(!showMenu)}
-                    aria-label={showMenu ? "Close Menu" : "Open Menu"}
+            <div className="small-screen w-full">
+                <div className="w-full flex justify-end items-center">
+                    <button
+                        className="icon relative text-2xl"
+                        onClick={handleMenuToggle}
+                        aria-label={showMenu ? "Close Menu" : "Open Menu"}
+                    >
+                        {showMenu ? <VscChromeClose /> : <CiMenuBurger />}
+                    </button>
+                </div>
+                {showMenu && <div
+                    className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                    onClick={handleMenuToggle}
+                    aria-hidden="true"
                 >
-                    {showMenu ? <VscChromeClose /> : <CiMenuBurger />}
-                </button>
+                </div>}
 
-                <div className={`w-[200px] h-screen absolute top-0 right-0 z-50 bg-slate-600 py-10 px-6 transition-all duration-500 ease-in-out transform ${showMenu ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+                <div className={`w-[50%] h-screen fixed top-0 right-0 z-50 py-10 px-6 transition-all duration-500 ease-in-out transform ${showMenu ? "translate-x-0 opacity-100 bg-white" : "translate-x-full"
                     }`}
                 >
-                    <span onClick={() => setShowMenu(!showMenu)} className="absolute top-0 right-0 text-2xl text-red-500 p-4">
+                    <span onClick={handleMenuToggle} className="absolute top-0 right-0 text-2xl text-red-500 p-4">
                         <VscChromeClose />
                     </span>
-                    <ul className="flex flex-col justify-center text-white items-start gap-6">
-                        <NavLink to="/" className={getActiveClass} onClick={() => setShowMenu(false)}>Home</NavLink>
-                        <NavLink to="/appointment" className={getActiveClass} onClick={() => setShowMenu(false)}>Appointment</NavLink>
-                        <NavLink to="/about" className={getActiveClass} onClick={() => setShowMenu(false)}>About Us</NavLink>
-                        <NavLink to="https://hospital-manage-dashboard.vercel.app/" target="_blank" rel="noopener noreferrer" className={getActiveClass} onClick={() => setShowMenu(false)}>Admin</NavLink>
+                    <ul className="flex flex-col justify-center items-start gap-6">
+                        <NavLink to="/" className={getActiveClass} onClick={handleMenuToggle}>Home</NavLink>
+                        <NavLink to="/appointment" className={getActiveClass} onClick={handleMenuToggle}>Appointment</NavLink>
+                        <NavLink to="/about" className={getActiveClass} onClick={handleMenuToggle}>About Us</NavLink>
+                        <NavLink to="https://hospital-manage-dashboard.vercel.app/" target="_blank" rel="noopener noreferrer" className={getActiveClass} onClick={handleMenuToggle}>Admin</NavLink>
                     </ul>
 
                     <div className="mt-5">
@@ -113,7 +134,7 @@ export const Navbar = () => {
                                 className="relative text-white flex justify-center items-center gap-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-8 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-300 dark:border-gray-700"
                                 onClick={() => {
                                     navigate("/login");
-                                    setShowMenu(!showMenu);
+                                    handleMenuToggle();
                                 }}
                                 disabled={isLoading}
                                 aria-busy={isLoading}
@@ -127,7 +148,7 @@ export const Navbar = () => {
                                 className="text-white flex justify-center items-center gap-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-8 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-300 dark:border-gray-700"
                                 onClick={() => {
                                     handleLogout();
-                                    setShowMenu(!showMenu);
+                                    handleMenuToggle();
                                 }}
                                 disabled={isLoading}
                                 aria-busy={isLoading}
